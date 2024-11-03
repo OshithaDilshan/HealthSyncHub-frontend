@@ -4,49 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logged Meal Plans</title>
+    <link rel="icon" href="Images/tabicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="calender.css">
+
 </head>
-<body class="bg-gray-800 flex justify-center items-center h-screen">
-    <div class="flex bg-gray-900 w-full h-full">
-        <!-- Sidebar -->
-        
 
-        <!-- Main Content -->
-        <div class="flex-1 p-8">
-            <div class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-white">Logged Meal Plans</h1>
-            </div>
-
-            <!-- Calendar Section -->
-            <div class="bg-gray-200 p-8 rounded-lg shadow-lg w-2/3 mx-auto">
-                <div class="text-center mb-4">
-                    <h2 class="text-xl font-semibold text-gray-800">August 2024</h2>
+<body class="flex flex-col h-screen font-josefin">
+    <div class="flex w-full h-full">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <img src="Images/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    <p class="text-xs mt-2">Home</p>
                 </div>
-                <div class="grid grid-cols-7 gap-2 text-center text-gray-700">
-                    <!-- Days of the week -->
-                    <div class="font-semibold">Mon</div>
-                    <div class="font-semibold">Tue</div>
-                    <div class="font-semibold">Wed</div>
-                    <div class="font-semibold">Thu</div>
-                    <div class="font-semibold">Fri</div>
-                    <div class="font-semibold">Sat</div>
-                    <div class="font-semibold">Sun</div>
-
-                    <!-- Calendar dates (Example for August 2024) -->
-                    <!-- Empty cells for padding -->
-                    <div></div><div></div><div></div><div></div>
-                    <!-- Dates -->
-                    <div>1</div><div>2</div><div>3</div><div>4</div>
-                    <div>5</div><div>6</div><div>7</div><div>8</div>
-                    <div>9</div><div>10</div><div>11</div><div>12</div>
-                    <div>13</div><div>14</div><div>15</div><div>16</div>
-                    <div>17</div><div>18</div><div>19</div><div>20</div>
-                    <div>21</div><div>22</div><div>23</div><div>24</div>
-                    <div>25</div><div>26</div><div>27</div><div>28</div>
-                    <div>29</div><div>30</div><div>31</div>
+                <div class="icon flex flex-col items-center">
+                    <img src="Images/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <img src="Images/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <img src="Images/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    <p class="text-xs mt-2">Dashboard</p>
                 </div>
             </div>
         </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-1 p-8">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold">Logged Meal Plans</h1>
+            </div>
+
+            <!-- Calendar Section -->
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full md:w-2/3 mx-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="prevMonth()" class="text-gray-500 font-semibold">&lt; Prev</button>
+                    <h2 id="monthYear" class="text-xl font-semibold text-gray-800"></h2>
+                    <button onclick="nextMonth()" class="text-gray-500 font-semibold">Next &gt;</button>
+                </div>
+
+                <!-- Days of the week headers -->
+                <div id="dayHeaders" class="grid grid-cols-7 gap-2 text-center text-gray-700 mb-2">
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                    <div class="day-header">Sun</div>
+                </div>
+
+                <!-- Separate grid container for calendar dates -->
+                <div id="calendarDates" class="grid grid-cols-7 gap-2 text-center text-gray-700"></div>
+            </div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+    <script src="dashboard2.js"></script>
+
 </body>
 </html>

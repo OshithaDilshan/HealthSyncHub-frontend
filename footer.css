@@ -1,0 +1,24 @@
+/* Footer Text Styling */
+footer {
+    font-size: 0.875rem;
+    line-height: 1.25;
+    padding: 1rem;
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+}
+/* Footer */
+footer {
+    font-size: 0.875rem;
+    line-height: 1.25;
+}
+
+footer p {
+    margin: 5px 0;
+}
+.footer {
+    background-color: #497d59; /* Darker green color */
+    color: #ffffff;            /* White text for contrast */
+}

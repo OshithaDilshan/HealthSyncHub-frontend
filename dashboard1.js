@@ -1,12 +1,12 @@
 // Sample user data
 const userData = {
-    name: "John Doe",
-    email: "johndoe@example.com",
+    name: "oshitha",
+    email: "johndoe",
     sex: "Male",
     age: 29,
     weight: "70 kg",
     height: "175 cm",
-    bmr: "1600",
+    bmr: "11600",
     bmi: "22.9",
     physicalInjuries: "None",
     allergies: "Pollen",
