@@ -18,6 +18,7 @@
     width: 2.5rem; /* Consider using rem or % for responsiveness */
     cursor: pointer;
     transition: background-color 0.2s; /* Transition added for hover effect */
+    
 }
 
 /* Styling for logged days */

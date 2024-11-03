@@ -4,58 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>High-End Fitness App Landing Page</title>
+  <link rel="icon" href="Images/tabicon.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="landingpage.css">
-
 </head>
 <body class="text-white font-sans relative bg-gray-900">
 
-<!-- Welcome Section with Background Image and Overlay -->
-<section class="welcome-section flex flex-col justify-between p-10 text-white">
-  <a href="#">
-    <button class="sign-up-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
-      Sign Up
-    </button>
+  <a href="#" class="logo-container">
+    <img src="Images/tabicon.png" alt="Logo" class="logo">
   </a>
 
-  <div class="max-w-2xl p-6 bg-gray-800 bg-opacity-90 rounded-lg shadow-lg" data-aos="fade-up">
-    <h1 class="text-5xl font-bold mb-6 text-white">Achieve Your Fitness Goals with Personalized Guidance!</h1>
-    <p class="text-xl mb-6 text-gray-200">
-      Unlock your potential with our expert diet and workout coaching,<br>
-      tailored to your unique needs.<br>
-      Stay motivated and reach your fitness goals!
-    </p>
-    
-  </div>
-</section>
+  <section class="welcome-section flex flex-col justify-between p-10 text-white">
+    <a href="#">
+      <button class="sign-up-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
+        Sign Up
+      </button>
+    </a>
+  
+    <div class="left-bottom-corner max-w-2xl p-6 bg-gray-800 bg-opacity-90 rounded-lg shadow-lg" data-aos="fade-up">
+      <h1 class="text-5xl font-bold mb-6">Achieve Your Fitness Goals with Personalized Guidance!</h1>
+      <p class="text-xl mb-6 text-gray-200">
+        Unlock your potential with our expert diet and workout coaching,<br>
+        tailored to your unique needs.<br>
+        Stay motivated and reach your fitness goals!
+      </p>
+    </div>
+  </section>
+  
 
-<!-- Feature Section with AOS and Tilt Effects -->
-<section class="feature-section flex flex-col items-center justify-center min-h-screen py-20 text-center text-white relative">
-  <div class="overlay"></div> <!-- Overlay for background image -->
-  <h2 class="text-5xl font-bold mb-10" data-aos="fade-in">Our Features</h2>
-  <div class="space-y-12 max-w-4xl w-full px-4 relative z-10"> <!-- Ensure this content is above the overlay -->
-    
-    <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform hover:scale-105 tilt bg-opacity-90" data-aos="fade-right">
-      <img src="User.png" alt="Health Calculations" class="h-24 w-24 rounded-full">
-      <p class="text-xl font-semibold text-gray-200">Calculate Health Metrics</p>
+  <!-- Feature Section -->
+  <section class="feature-section flex flex-col items-center justify-center min-h-screen py-20 text-center" data-aos="fade-in">
+    <h2 class="text-5xl font-bold mb-10">Our Features</h2>
+    <div class="space-y-12 max-w-4xl w-full px-4 relative z-10">
+      <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform hover:scale-105 tilt bg-opacity-100" data-aos="fade-right">
+        <img src="User.png" alt="Health Calculations" class="h-24 w-24 rounded-full">
+        <p class="text-xl font-semibold text-gray-200">Calculate Health Metrics</p>
+      </div>
+      <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform flex-row-reverse hover:scale-105 tilt bg-opacity-100" data-aos="fade-left">
+        <img src="User.png" alt="Personalized Meal Plan" class="h-24 w-24 rounded-full">
+        <p class="text-xl font-semibold text-gray-200">Personalized Meal Plans</p>
+      </div>
+      <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform hover:scale-105 tilt bg-opacity-100" data-aos="fade-right">
+        <img src="User.png" alt="Workout Training" class="h-24 w-24 rounded-full">
+        <p class="text-xl font-semibold text-gray-200">Workout Training</p>
+      </div>
+      <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform flex-row-reverse hover:scale-105 tilt bg-opacity-100" data-aos="fade-left">
+        <img src="User.png" alt="Track Progress" class="h-24 w-24 rounded-full">
+        <p class="text-xl font-semibold text-gray-200">Track Your Progress</p>
+      </div>
     </div>
-    <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform flex-row-reverse hover:scale-105 tilt bg-opacity-90" data-aos="fade-left">
-      <img src="User.png" alt="Personalized Meal Plan" class="h-24 w-24 rounded-full">
-      <p class="text-xl font-semibold text-gray-200">Personalized Meal Plans</p>
-    </div>
-    <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform hover:scale-105 tilt bg-opacity-90" data-aos="fade-right">
-      <img src="User.png" alt="Workout Training" class="h-24 w-24 rounded-full">
-      <p class="text-xl font-semibold text-gray-200">Workout Training</p>
-    </div>
-    <div class="feature-item flex items-center space-x-4 p-5 bg-gray-700 rounded-lg shadow-md transition-transform flex-row-reverse hover:scale-105 tilt bg-opacity-90" data-aos="fade-left">
-      <img src="User.png" alt="Track Progress" class="h-24 w-24 rounded-full">
-      <p class="text-xl font-semibold text-gray-200">Track Your Progress</p>
-    </div>
-  </div>
-</section>
-
-
+  </section>
 
 <!-- Footer Section -->
 <footer class="bg-gray-900 py-16 text-gray-300">
@@ -89,14 +88,20 @@
         </ul>
       </div>
     </div>
+    <!-- Additional Contact Information -->
+    <div class="container mx-auto text-center mt-4">
+      <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+      <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+    </div>
   </div>
 </footer>
 
-<!-- JavaScript for AOS Initialization -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
+
+  <!-- JavaScript for AOS Initialization -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 </body>
 </html>

@@ -1,79 +1,120 @@
+/* Static Background */
+body {
+  background-image: url('Images/background.jpg'); /* Replace with your image path */
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+/* Position the welcome section content in the left bottom corner */
+.left-bottom-corner {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  max-width: 80%; /* Adjust the width as needed */
+}
+
+/* Welcome Section Full Height to Cover Viewport */
+.welcome-section {
+  position: relative;
+  min-height: 100vh; /* Ensures section covers full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+/* Sign-Up Button Styling */
+.sign-up-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10; /* Ensure it stays on top of other elements */
+  padding: 0.7rem 1rem;
+}
+
+/* Feature Section Styling */
+.feature-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
 /* Tilt Effect Styling */
 .tilt {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.3s;
-  }
-  .tilt:hover {
-    transform: rotateX(10deg) rotateY(-10deg);
-  }
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s;
+}
 
-  /* Background Image Styling */
-  .welcome-section {
-    background-image: url('Images/background.jpg'); /* Replace with the correct path */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    position: relative;
-    color: white;
-  }
+.tilt:hover {
+  transform: rotateX(10deg) rotateY(-10deg);
+}
 
-  /* Overlay for readability */
-  .welcome-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Dark overlay */
-    z-index: 1;
-  }
+/* Feature Section Content Overlay */
+.feature-section h2,
+.feature-section p,
+.feature-section a {
+  position: relative;
+  z-index: 2;
+}
 
+/* Footer Styling */
+footer {
+  background-color: #1f2937; /* Dark gray */
+  color: #cbd5e0; /* Light gray */
+  padding: 4rem 0;
+  text-align: center;
+}
 
+/* AOS Animation Overrides */
+[data-aos="fade-up"],
+[data-aos="fade-in"],
+[data-aos="fade-right"],
+[data-aos="fade-left"] {
+  transition-duration: 1.2s; /* Smooth animation */
+}
 
-  /* Ensure Sign Up button is on top */
-  .sign-up-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 3; /* Higher than the overlay */
-    padding: 0.7rem 1rem; /* Extra padding */
-  }
+/* Footer Column Styling */
+footer h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 
-  /* Future Section with Background Image */
-  .future-section {
-    position: relative;
-    background-image: url('Images/background.jpg'); /* Replace with the correct path */
-    background-size: cover;
-    background-position: center;
-  }
+footer ul {
+  list-style-type: none;
+  padding: 0;
+}
 
+footer ul li {
+  margin-bottom: 0.5rem;
+}
 
+/* General Text and Button Styles */
+h1, h2, p {
+  color: #ffffff; /* Ensure readability */
+}
 
-  /* Feature Section Background Image */
-  .feature-section {
-    position: relative;
-    background-image: url('Images/background.jpg'); /* Replace with the correct path */
-    background-size: cover;
-    background-position: center;
-  }
+button {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .feature-section .overlay {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Dark overlay */
-    z-index: 1;
-  }
+button:hover {
+  background-color: #2563eb; /* Hover effect on button */
+}
+/* Logo Styling */
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10; /* Ensure it stays on top of other elements */
+}
 
-  .feature-section h2,
-  .feature-section p,
-  .feature-section a {
-    position: relative;
-    z-index: 2; /* Higher than the overlay */
-  }
+.logo {
+  height: 70px; /* Adjust as needed */
+  width: auto;
+}
