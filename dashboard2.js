@@ -5,7 +5,6 @@ let currentDate = new Date();
 // Sample logged dates for demonstration
 const loggedMealDates = {
     '2024-11-02': true,
-    '2024-11-15': true,
     '2024-11-19': true,
     '2024-11-12': true,
     '2024-11-26': true
