@@ -1,0 +1,156 @@
+/* Calculation Box Styling */
+.calculation-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+
+/* Button container and buttons */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows wrapping */
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    /* Space between title and buttons */
+    padding: 10px;
+}
+
+.workout-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+    /* Fixed width for uniform size */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.workout-button:hover {
+    transform: scale(1.03);
+    /* Subtle hover effect */
+}
+
+.workout-button img {
+    width: 100%;
+    /* Full width of button */
+    height: 180px;
+    /* Maintain consistent height */
+    object-fit: cover;
+    /* Ensures proper cropping of image */
+    opacity: 0.9;
+    /* Reduced transparency */
+    transition: opacity 0.3s ease;
+}
+
+.workout-button:hover img {
+    opacity: 1;
+    /* Full opacity on hover */
+}
+
+.workout-label {
+    margin: 10px 0 0 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .button-container {
+        gap: 15px;
+    }
+
+    .workout-button {
+        width: 90%;
+        /* Make buttons occupy most of the screen width */
+        max-width: 320px;
+        /* Prevent them from being too large */
+    }
+
+    .workout-button img {
+        height: 150px;
+        /* Reduce image height for smaller screens */
+    }
+
+    .workout-label {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-container {
+        gap: 10px;
+    }
+
+    .workout-button {
+        width: 100%;
+        /* Full width on mobile */
+    }
+
+    .workout-button img {
+        height: 120px;
+        /* Further reduce image height */
+    }
+
+    .workout-label {
+        font-size: 14px;
+    }
+}
+
+.option {
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.option:hover {
+    transform: scale(1.05);
+    border-color: #d1d5db;
+    /* Gray border on hover */
+}
+/* Next Button */
+#nextButton {
+    background-color: #008000;
+    color: #ffffff;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+#nextButton:hover {
+    background-color: #0c734f;
+}
+#backButton {
+    background-color: #DAA520;
+    color: #ffffff;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 5rem; /* Adjust the spacing between Back and Next buttons */
+
+}
+
+#backButton:hover {
+    background-color: #B8860B;
+}

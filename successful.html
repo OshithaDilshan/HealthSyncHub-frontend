@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="icon" href="assets/tabicon.png" type="image/png">
+
+    <title>Health Sync Hub - Congratulations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #000000;
+        }
+
+        .container {
+            background-color: white;
+            padding: 1.5rem; /* Reduced padding */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px; /* Decreased from 600px */
+            position: relative;
+            text-align: center;
+        }
+
+        .check-image {
+            width: 100px;
+            height: 100px;
+            margin: 0.5rem auto; /* Reduced margin */
+            display: block;
+        }
+
+        .success-message {
+            font-size: 1.2rem;
+            color: #008000;
+            margin: 0.5rem 0; /* Reduced margin */
+            padding: 0 1rem;
+        }
+
+        #continueButton {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            width: 130px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #008000;
+            color: #fff;
+            margin-top: 0.5rem; /* Reduced margin */
+        }
+
+        #continueButton:hover {
+            background-color: #0c734f;
+        }
+
+        footer {
+            font-size: 0.875rem;
+            line-height: 1.25;
+            padding: 1rem;
+            text-align: center;
+            background-color: #497d59;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 1.25rem;
+                max-width: 350px;
+            }
+            
+            .check-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .success-message {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media screen and (max-width: 360px) {
+            .container {
+                padding: 1rem;
+                max-width: 300px;
+            }
+            
+            .success-message {
+                font-size: 1rem;
+            }
+            
+            #continueButton {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .check-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%2334C759' stroke-width='5'/%3E%3Cpath d='M30 50 L45 65 L70 35' fill='none' stroke='%2334C759' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="Success Check Mark" class="check-image">
+            <div class="success-message">
+                Your account has been successfully created!
+            </div>
+            <button type="button" id="continueButton" onclick="window.location.href='home.html'">Continue</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+        <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+    </footer>
+</body>
+</html>

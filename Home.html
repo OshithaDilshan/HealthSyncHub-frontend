@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Health Calculation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/health_cal.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+</head>
+
+<body class="flex flex-col h-screen font-josefin">
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center active">
+                    <a href="#">
+                    <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content flex-grow flex flex-col items-center justify-center bg-white p-4">
+            <h2 class="text-2xl font-bold mb-4">Let's Get Moving Health Calculations</h2>
+            <div class="calculation-box p-8 rounded shadow-md w-64 text-center">
+                <div class="photo-placeholder bg-gray-400 w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+                    <img id="photoPreview" class="w-full h-full object-cover rounded" alt="Uploaded Photo">
+                    <input type="file" id="photoInput" class="hidden" accept="image/*" onchange="previewImage(event)">
+                </div>
+                <button id="calculateButton" class="calculate-button mt-6">Calculate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const gender = localStorage.getItem('gender') || 'female';
+
+        function loadDefaultImage() {
+            const photoPreview = document.getElementById('photoPreview');
+            photoPreview.src = gender === 'male' ? 'assets/male.png' : 'assets/female.png';
+            photoPreview.classList.remove('hidden');
+        }
+
+        function previewImage(event) {
+            const photoPreview = document.getElementById('photoPreview');
+            const file = event.target.files[0];
+            if (file) {
+                photoPreview.src = URL.createObjectURL(file);
+            }
+            photoPreview.classList.remove('hidden');
+        }
+
+        window.onload = loadDefaultImage;
+
+        document.getElementById('calculateButton').addEventListener('click', function () {
+            window.location.href = 'Height.html';
+        });
+    </script>
+</body>
+
+</html>

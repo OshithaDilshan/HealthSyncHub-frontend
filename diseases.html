@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>diseases</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+
+    <style>
+        .breadcrumb-container {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb-item.active {
+            color: #6c757d;
+        }
+
+        .breadcrumb-separator {
+            color: #6c757d;
+            margin: 0 0.5rem;
+        }
+
+        /* Next Button */
+        #nextButton {
+            background-color: #008000;
+            color: #ffffff;
+            padding: 0.5rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+        }
+
+        #nextButton:hover {
+            background-color: #0c734f;
+        }
+
+        #backButton {
+            background-color: #DAA520;
+            color: #ffffff;
+            padding: 0.5rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 5rem;
+            /* Adjust the spacing between Back and Next buttons */
+
+        }
+
+        #backButton:hover {
+            background-color: #B8860B;
+        }
+    </style>
+
+
+
+</head>
+
+<body id="diseasespage" class="flex flex-col h-screen font-josefin">
+
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+
+         <!-- Sidebar Navigation -->
+         <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center active">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- main content  -->
+        <div class="main-content flex-grow flex items-center justify-center p-8">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg text-center">
+                <h1 class="text-2xl font-semibold mb-8">Are there any diseases you have?</h1>
+
+                <!-- diseases  Options in Card Style -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="none" class="form-checkbox text-indigo-600">
+                        <span>None</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="peanuts" class="form-checkbox text-indigo-600">
+                        <span>Diabetes</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="tree-nuts" class="form-checkbox text-indigo-600">
+                        <span>Hypertension</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="milk" class="form-checkbox text-indigo-600">
+                        <span>Cardio vascular diseases</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="eggs" class="form-checkbox text-indigo-600">
+                        <span>Chronical kidney diseases</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="wheat" class="form-checkbox text-indigo-600">
+                        <span>Digestive problems</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="soy" class="form-checkbox text-indigo-600">
+                        <span>Obesity</span>
+                    </label>
+                    <label class="flex items-center space-x-2 p-4 bg rounded-lg shadow cursor-pointer bg:hover">
+                        <input type="checkbox" name="diseases" value="fish" class="form-checkbox text-indigo-600">
+                        <span>Anemia</span>
+                    </label>
+
+                </div>
+
+
+                <div class="button-container"><!-- Next Button -->
+                    <a href="alergies.html">
+                        <button id="backButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Back</button>
+                    </a>
+                    <button id="nextButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Next </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+    <script src="js/meal.js"></script>
+</body>
+
+</html>

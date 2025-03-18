@@ -1,0 +1,106 @@
+
+/* Radio Button Styling */
+input[type="radio"] {
+    accent-color: #2563eb; /* Tailwind's blue-600 color */
+}
+
+
+
+/* Custom CSS for dropdown functionality */
+
+.meal-content {
+    display: none; /* Hidden by default */
+}
+
+/* Active state styling */
+.day-header.active {
+    background-color: #38a169; /* Tailwind green-500 */
+    color: white;
+}
+
+.icon.rotate {
+    transform: rotate(180deg); /* Rotate the icon when active */
+    transition: transform 0.2s ease;
+}
+.rotate-180 {
+    transform: rotate(180deg);
+}
+.bg-green-200 {
+    background-color: #A7F3D0;
+}
+
+/* Dropdown button style */
+.day-button {
+display: flex;
+justify-content: space-between;
+align-items: center;
+cursor: pointer;
+width: 100%;
+padding: 1rem;
+
+border: none;
+border-radius: 8px;
+font-size: 1.125rem;
+}
+
+/* Dropdown content hidden by default */
+.dropdown-content {
+display: none;
+}
+
+/* Show dropdown content when active */
+.dropdown-content.active {
+display: block;
+}
+
+/* Styling for each meal item */
+.meal-item {
+display: flex;
+align-items: center;
+margin-bottom: 20px;
+}
+.meal-item h4 {
+    margin-right: 15px; /* Adds space between the title and the details */
+}
+
+.meal-details {
+display: flex;
+align-items: center;
+}
+
+.meal-details img {
+width: 60px;
+height: 60px;
+object-fit: cover;
+border-radius: 50%;
+margin-right: 10px;
+}
+
+.meal-details p {
+font-size: 0.875rem;
+}
+
+
+
+button:disabled {
+background-color: #cbd5e1;
+cursor: not-allowed;
+}
+
+.icon.active {
+   color: white; /* Change text color */
+    border-radius: 8px; /* Optional: Rounded corners */
+    padding: 8px; /* Add some padding */
+}
+
+.icon.active img {
+    filter: brightness(0) invert(1); /* Optional: Make the icon white */
+}
+.bg {
+    background-color: #def2c4;
+}
+
+.bg:hover {
+    background-color: #c0e590;
+}
+

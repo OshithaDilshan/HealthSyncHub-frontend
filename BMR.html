@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title> BMI Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/Height.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+
+</head>
+
+<body class="flex flex-col h-screen font-josefin">
+
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center active">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content custom-bg flex-grow p-8 flex justify-center items-center">
+            <div class="calculation-box bg-gray-200 p-6 rounded-lg text-center max-w-md w-full">
+                <h1 class="text-lg font-semibold mb-4">Your BMR Result</h1><br>
+
+                <!-- BMI Value Display -->
+                <div class="mb-4">
+                    <p>Your BMR Value</p><br>
+                    <p id="bmiValue" class="bmi-result">11600</p>
+                </div>
+
+                <!-- BMI Range Display -->
+                <div class="mb-4">
+                    <p>Average Daily Calories</p><br>
+                    <p id="calorie" class="">2770</p>
+                </div>
+
+                <!-- Next Button -->
+                <div class="button-container"><!-- Next Button -->
+                    <a href="BMI.html">
+                        <button id="backButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Back</button>
+                    </a>
+                    <button id="nextButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Next </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch BMR and Calories from database
+            fetch('fetch_bmr_calories.php')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('bmrValue').textContent = data.bmr || "No data available";
+                    document.getElementById('caloriesValue').textContent = data.calories || "No data available";
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    document.getElementById('bmrValue').textContent = "Error loading data";
+                    document.getElementById('caloriesValue').textContent = "Error loading data";
+                });
+        });
+
+        document.getElementById('nextButton').addEventListener('click', function () {
+            // Navigate to meal plans page
+            window.location.href = 'Diet_restrictions.html';
+        });
+    </script>
+
+
+
+</body>
+
+</html>

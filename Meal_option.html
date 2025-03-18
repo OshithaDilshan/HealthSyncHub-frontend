@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Select Meal Option</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+</head>
+
+<body id="mealoptionpage" class="flex flex-col h-screen font-josefin">
+
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center active">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow flex items-center justify-center p-8">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg text-center">
+                <h1 class="text-2xl font-semibold mb-8">Select Your Meal Option</h1>
+
+                <!-- Meal Options Container -->
+                <div class="meal-options flex justify-center gap-8">
+
+                    <!-- First Column of Meal Options -->
+                    <div class="meal-column space-y-4">
+                        <button id="one"
+                            class="meal-btn bg py-4 px-6 w-32 rounded-lg shadow flex flex-col items-center hover:bg">
+                            <div>Breakfast</div>
+                            <div>Lunch</div>
+                            <div>Dinner</div>
+                            <div>Snack</div>
+                        </button>
+                    </div>
+
+                    <!-- Second Column of Meal Options -->
+                    <div class="meal-column space-y-4">
+                        <button id="two"
+                            class="meal-btn bg py-4 px-6 w-32 rounded-lg shadow flex flex-col items-center hover:bg">
+                            <div>Breakfast</div>
+                            <div>Lunch</div>
+                            <div>Dinner</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+    <script src="js/meal.js"></script>
+
+</body>
+
+</html>

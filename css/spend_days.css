@@ -1,0 +1,75 @@
+.days-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.day-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #4caf50;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.day-box:hover {
+    background-color: #4caf50;
+    color: white;
+}
+.day-box input[type="radio"] {
+    display: none;
+}
+.day-box.selected {
+    background-color: #4caf50;
+    color: white;
+}
+/* Next Button */
+#nextButton {
+background-color: #008000;
+color: #ffffff;
+padding: 0.5rem 2rem;
+border: none;
+border-radius: 4px;
+font-size: 1rem;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+#nextButton:hover {
+background-color: #0c734f;
+}
+
+/* Back Button */
+#backButton {
+background-color: #DAA520;
+color: #ffffff;
+padding: 0.5rem 2rem;
+border: none;
+border-radius: 4px;
+font-size: 1rem;
+cursor: pointer;
+transition: background-color 0.3s ease;
+margin-right: 5rem; /* Adjusts spacing between Back and Next buttons */
+}
+
+#backButton:hover {
+background-color: #B8860B;
+}
+/* Calculation Box Styling */
+.calculation-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff; 
+    border-radius: 8px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head section remains the same until container-title styles -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="icon" href="assets/tabicon.png" type="image/png">
+
+    <title>Health Sync Hub - User Information</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #000000;
+        }
+
+        .container {
+            background-color: white;
+            padding: 3rem 4rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .container-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            /* Removed padding-bottom and border-bottom */
+        }
+
+        .container-title h2 {
+            font-size: 2rem;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Rest of the CSS remains the same */
+        #userInfoForm {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+        }
+
+        .input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            margin-top: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .input-field-container {
+            display: flex;
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+        }
+
+        .input-group input[type="text"],
+        .input-group select {
+            border: 1px solid #0EFF00;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 1rem;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3rem;
+            gap: 6rem;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 2rem;
+        }
+
+        #backButton, #continueButton {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            width: 130px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #backButton {
+            background-color: #DAA520;
+            color: #fff;
+        }
+
+        #continueButton {
+            background-color: gray;
+            color: #fff;
+            cursor: not-allowed;
+        }
+
+        #continueButton:enabled {
+            background-color: #008000;
+            cursor: pointer;
+        }
+
+        #backButton:hover {
+            background-color: #B8860B;
+        }
+
+        #continueButton:enabled:hover {
+            background-color: #0c734f;
+        }
+
+        footer {
+            font-size: 0.875rem;
+            line-height: 1.25;
+            padding: 1rem;
+            text-align: center;
+            background-color: #497d59;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        @media screen and (min-width: 768px) {
+            .input-row {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .input-group {
+                flex: 1;
+                min-width: 200px;
+                max-width: 300px;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .input-row {
+                flex-wrap: nowrap;
+                justify-content: space-around;
+            }
+
+            .input-group label {
+                font-size: 1.5rem;
+            }
+
+            .input-group input[type="text"],
+            .input-group select {
+                font-size: 1.125rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+            
+            .container-title h2 {
+                font-size: 1.75rem;
+            }
+            
+            .button-container {
+                gap: 4rem;
+                max-width: 100%;
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 360px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .container-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            #backButton,
+            #continueButton {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div class="container-title">
+                <h2>Let's get to know you better</h2>
+            </div>
+            <form id="userInfoForm" action="details.html">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button-container">
+                    
+                    <button type="submit" id="continueButton" disabled>Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+        <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+    </footer>
+
+    <script>
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const genderInput = document.getElementById('gender');
+        const continueButton = document.getElementById('continueButton');
+
+        function validateForm() {
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const gender = genderInput.value;
+
+            continueButton.disabled = !(firstName && lastName && gender);
+        }
+
+        firstNameInput.addEventListener('input', validateForm);
+        lastNameInput.addEventListener('input', validateForm);
+        genderInput.addEventListener('change', validateForm);
+    </script>
+</body>
+</html>

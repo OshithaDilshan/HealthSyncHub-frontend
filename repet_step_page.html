@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,35 +8,50 @@
     <title>Repeat Workout Steps</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="style_repeat_steps.css">
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="css/style_repeat_steps.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
 
 </head>
+
 <body class="flex flex-col h-screen font-josefin">
 
     <!-- Main Container -->
     <div class="flex flex-grow">
-        
-         <!-- Sidebar Navigation -->
-         <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
             <div class="icon-nav flex flex-col items-center space-y-8">
                 <div class="icon flex flex-col items-center">
-                    <img src="Images/Images/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
                     <p class="text-xs mt-2">Home</p>
                 </div>
                 <div class="icon flex flex-col items-center">
-                    <img src="Images/Images/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
                     <p class="text-xs mt-2">Meal</p>
                 </div>
                 <div class="icon flex flex-col items-center">
-                    <img src="Images/Images/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
                     <p class="text-xs mt-2">Workout</p>
                 </div>
                 <div class="icon flex flex-col items-center">
-                    <img src="Images/Images/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
                     <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
                 </div>
             </div>
         </div>
@@ -43,28 +59,29 @@
         <!-- Main Content -->
         <div class="main-content flex-grow flex flex-col items-center justify-center">
             <h1 class="text-2xl font-semibold mb-8">How many times you can repeat the workout steps</h1>
-           <div class="button-container">
-        <button class="repeat-button" onclick="location.href='spend_days.html'">1 - 10</button>
-        <button class="repeat-button" onclick="location.href='spend_days.html'">10 - 20</button>
-    </div>
-    <div class="chatbot-container">
-        <div class="chatbot-message">
-            Safe and sustainable workout can result in losing or gaining typically around 1kg per week.
-        </div>
-        <img src="Images/avator.jpeg" alt="Chatbot Icon" class="chatbot-icon">
-    </div>
+            <div class="button-container">
+                <button class="repeat-button" onclick="location.href='spend_days.html'">1 - 10</button>
+                <button class="repeat-button" onclick="location.href='spend_days.html'">10 - 20</button>
+            </div>
+            <div class="chatbot-container">
+                <div class="chatbot-message">
+                    Safe and sustainable workout can result in losing or gaining typically around 1kg per week.
+                </div>
+                <img src="assets/avator.jpeg" alt="Chatbot Icon" class="chatbot-icon">
+            </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer w-full text-white text-center py-4">
         <div class="container mx-auto">
-            <p>&copy; 2024 Health sync hub. All rights reserved.</p>
+            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
             <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
         </div>
     </footer>
 
-  
+
 
 </body>
+
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Diet Restrictions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/injuries.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Custom CSS to position footer */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1; /* Allows content to expand and pushes footer to the bottom */
+        }
+       
+    </style>
+</head>
+<body class="main-container font-josefin">
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper flex-grow flex">
+        
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center active">
+                    <a href="#">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Profile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+         
+        <div class="main-content flex-grow flex flex-col items-center justify-center">
+            <h1 class="text-2xl font-semibold mb-8">Any injuries in these areas</h1>
+            <div class="btn-group">
+                <button class="btn" id="none"><i class="fas fa-ban"></i> None</button>
+                <button class="btn" data-injury="spine"><i class="fas fa-bone"></i> Spine</button>
+                <button class="btn" data-injury="wrist"><i class="fas fa-hand-paper"></i> Wrist</button>
+                <button class="btn" data-injury="knee"><i class="fas fa-walking"></i> Knee</button>
+                <button class="btn" data-injury="ankle"><i class="fas fa-shoe-prints"></i> Ankle</button>
+            </div>
+            <button id="next-btn">Next</button>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health sync hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+        const noneButton = document.getElementById("none");
+        const injuryButtons = document.querySelectorAll(".btn[data-injury]");
+        const nextButton = document.getElementById("next-btn");
+
+        noneButton.addEventListener("click", () => {
+            if (!noneButton.classList.contains("active")) {
+                noneButton.classList.add("active");
+                injuryButtons.forEach(btn => btn.classList.remove("active"));
+                nextButton.style.display = "none";
+                setTimeout(() => {
+                    window.location.href = "spend_days.html";
+                }, 100);
+            } else {
+                noneButton.classList.remove("active");
+            }
+        });
+
+        injuryButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                noneButton.classList.remove("active");
+                button.classList.toggle("active");
+                const anyActive = Array.from(injuryButtons).some(btn => btn.classList.contains("active"));
+                
+                if (anyActive) {
+                    nextButton.style.display = "block";
+                    nextButton.disabled = false;
+                } else {
+                    nextButton.style.display = "none";
+                }
+            });
+        });
+
+        nextButton.addEventListener("click", () => {
+            window.location.href = "spend_days.html";
+        });
+       
+    </script>
+
+</body>
+</html>

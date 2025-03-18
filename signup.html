@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Health Sync Hub - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #000000;
+        }
+
+        .login-container {
+            width: 550px;
+            text-align: center;
+            background-color: #fff;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .login-container h3 {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0 20px;
+        }
+
+        .input-container {
+            position: relative;
+            width: 85%;
+            max-width: 450px;
+            margin: 15px auto;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 15px;
+            padding-right: 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-container input:focus {
+            border-color: #0EFF00;
+        }
+
+        .input-container.valid input {
+            border-color: #0EFF00;
+        }
+
+        .input-container input::placeholder {
+            color: #757575;
+			
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .input-container.error input {
+            border-color: #0EFF00;
+        }
+
+        .input-container.error .error-message {
+            display: block;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #757575;
+            padding: 5px;
+            font-size: 18px;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password:hover {
+            color: #333;
+        }
+
+        .next-button {
+            width: 40%;
+            max-width: 200px;
+            background-color: #50C878;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px auto;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .next-button:hover {
+            background-color: #50C878;
+        }
+
+        footer {
+            font-size: 0.875rem;
+            line-height: 1.25;
+            padding: 1rem;
+            text-align: center;
+            background-color: #497d59;
+            color: #ffffff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                width: 95%;
+                padding: 20px 10px;
+            }
+
+            .input-container {
+                width: 90%;
+            }
+
+            .next-button {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="login-container">
+            <h2>Sign up to</h2>
+            <h3>Health Sync Hub</h3>
+
+            <div class="input-container">
+                <input type="email" id="email" placeholder="Email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="password" placeholder="Password" required>
+                <i class="toggle-password fas fa-eye" onclick="togglePassword('password')"></i>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <i class="toggle-password fas fa-eye" onclick="togglePassword('confirmPassword')"></i>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+
+            <button class="next-button" onclick="validateForm()">Create Account</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+        <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            passwordInputs.forEach(input => {
+                const icon = input.nextElementSibling;
+                input.type = "password";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            });
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            }
+        }
+
+        function clearError(elementId) {
+            const element = document.getElementById(elementId);
+            element.parentElement.classList.remove('error');
+            element.parentElement.classList.remove('valid');
+        }
+
+        function showError(elementId) {
+            const element = document.getElementById(elementId);
+            element.parentElement.classList.add('error');
+            element.parentElement.classList.remove('valid');
+        }
+
+        function showValid(elementId) {
+            const element = document.getElementById(elementId);
+            element.parentElement.classList.add('valid');
+            element.parentElement.classList.remove('error');
+        }
+
+        document.getElementById('email').addEventListener('input', function (e) {
+            const email = e.target.value;
+            const errorElement = document.getElementById('emailError');
+
+            clearError('email');
+
+            if (email) {
+                const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                if (!emailRegex.test(email)) {
+                    showError('email');
+                    errorElement.textContent = 'Please enter a valid email format (e.g., name@gmail.com)';
+                    return;
+                }
+
+                const domain = email.split('@')[1]?.toLowerCase();
+
+                if (domain && domain.length < 4) {
+                    showError('email');
+                    errorElement.textContent = 'Invalid email domain';
+                    return;
+                }
+
+                const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
+                if (!validTLDs.some(tld => domain?.endsWith(tld))) {
+                    showError('email');
+                    errorElement.textContent = 'Please use a valid domain extension (.com, .org, etc.)';
+                    return;
+                }
+
+                if (domain) {
+                    if (domain.startsWith('gmai') || domain.startsWith('yaho') ||
+                        domain.startsWith('hotmai') || domain.startsWith('outloo') ||
+                        domain.includes('.con')) {
+                        showError('email');
+                       /* errorElement.textContent = 'Did you mean gmail.com, yahoo.com, hotmail.com, or outlook.com?';*/
+                        return;
+                    }
+                }
+
+                // If all validations pass, show valid state
+                showValid('email');
+                errorElement.textContent = '';
+            }
+        });
+
+        function validateForm() {
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            let isValid = true;
+
+            clearError('email');
+            clearError('password');
+            clearError('confirmPassword');
+
+            if (!email.value) {
+                showError('email');
+                document.getElementById('emailError').textContent = 'Email is required';
+                isValid = false;
+            } else {
+                const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const domain = email.value.split('@')[1]?.toLowerCase();
+                const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
+
+                if (!emailRegex.test(email.value)) {
+                    showError('email');
+                    document.getElementById('emailError').textContent = 'Please enter a valid email format';
+                    isValid = false;
+                } else if (domain && domain.length < 4) {
+                    showError('email');
+                    document.getElementById('emailError').textContent = 'Invalid email domain';
+                    isValid = false;
+                } else if (!validTLDs.some(tld => domain?.endsWith(tld))) {
+                    showError('email');
+                    document.getElementById('emailError').textContent = 'Please use a valid domain extension (.com, .org, etc.)';
+                    isValid = false;
+                } else {
+                    showValid('email');
+                }
+            }
+
+            if (!password.value) {
+                showError('password');
+                document.getElementById('passwordError').textContent = 'Password is required';
+                isValid = false;
+            } else if (password.value.length < 8) {
+                showError('password');
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+
+            if (!confirmPassword.value) {
+                showError('confirmPassword');
+                document.getElementById('confirmPasswordError').textContent = 'Please confirm your password';
+                isValid = false;
+            } else if (password.value !== confirmPassword.value) {
+                showError('confirmPassword');
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                isValid = false;
+            }
+
+            if (isValid) {
+                window.location.href = 'getdetails.html';
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Images/Images/tabicon.png" type="image/png">
+    <title>Workout Selection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/workout_type.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+</head>
+
+<body class="flex flex-col h-screen font-josefin">
+
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center active">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">User</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow flex flex-col items-center justify-center">
+            <h1 class="text-2xl font-semibold mb-8">Choose your workout type</h1>
+            <!-- Container Box -->
+            <div
+                class="container-box flex flex-col items-center gap-6 p-6 border border-gray-300 rounded-lg shadow-md bg-white">
+                <!-- Options -->
+                <div class="options flex gap-8">
+                    <div class="option flex flex-col items-center cursor-pointer" onclick="selectWorkout('yoga')"
+                        id="yoga-option">
+                        <img src="assets/yoga.jpg" alt="Yoga" class="w-50 h-40 object-cover rounded-md shadow" />
+                        <p class="option-label mt-2 font-medium text-gray-700">Yoga</p>
+                    </div>
+                    <div class="option flex flex-col items-center cursor-pointer" onclick="selectWorkout('cardio')"
+                        id="cardio-option">
+                        <img src="assets/cardio.jpg" alt="Cardio Training"
+                            class="w-50 h-40 object-cover rounded-md shadow" />
+                        <p class="option-label mt-2 font-medium text-gray-700">Cardio Training</p>
+                    </div>
+                </div>
+                <!-- Buttons -->
+                <div class="buttons flex gap-4">
+                    <button id="backButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6" onclick="goBack()">
+                        Back
+                    </button>
+                    <button id="nextButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6" onclick="goNext()"
+                        disabled>
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health sync hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+    <script>
+        let selectedWorkout = null;
+
+        // Handle workout selection
+        function selectWorkout(workout) {
+            selectedWorkout = workout;
+
+            // Highlight the selected option
+            document.getElementById("yoga-option").classList.remove("selected");
+            document.getElementById("cardio-option").classList.remove("selected");
+            document.getElementById(`${workout}-option`).classList.add("selected");
+
+            // Enable the "Next" button
+            document.getElementById("nextButton").disabled = false;
+        }
+
+        // Navigate back
+        function goBack() {
+            window.history.back();
+            window.location.href = "spend_days.html";
+        }
+
+        // Navigate to the next page
+        function goNext() {
+            if (selectedWorkout) {
+                // Store the selected workout in localStorage (optional)
+                localStorage.setItem("selectedWorkout", selectedWorkout);
+
+                // Redirect to the next page
+                window.location.href = "workout_plan.html";
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

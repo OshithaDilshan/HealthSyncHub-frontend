@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Workout Plan Selector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/spend_days.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/background.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="flex flex-col h-screen font-josefin">
+
+    <!-- Main Container -->
+    <div class="flex flex-grow">
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
+            <div class="icon-nav flex flex-col items-center space-y-8">
+                <div class="icon flex flex-col items-center">
+                    <a href="Home.html">
+                        <img src="assets/home-icon.png" alt="Home Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Home</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="Diet_restrictions.html">
+                        <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Meal</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="injury.html">
+                        <img src="assets/workout-icon.png" alt="Workout Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Workout</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="dashboard.html">
+                        <img src="assets/dashboard-icon.png" alt="Dashboard Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">Dashboard</p>
+                </div>
+                <div class="icon flex flex-col items-center">
+                    <a href="profile.html">
+                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                    </a>
+                    <p class="text-xs mt-2">User</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Updated Main Content -->
+        <div class="main-content flex-grow flex flex-col items-center justify-center">
+            <h1 class="text-2xl font-semibold mb-8">How many days you can spend for the workouts</h1>
+            <div class="calculation-box p-8 rounded shadow-md w-64 text-center">
+                <div class="days-box-container">
+                    <label class="day-box">
+                        <input type="radio" name="days" value="1">
+                        1
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="2">
+                        2
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="3">
+                        3
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="4">
+                        4
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="5">
+                        5
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="6">
+                        6
+                    </label>
+                    <label class="day-box">
+                        <input type="radio" name="days" value="7">
+                        7
+                    </label>
+                </div>
+                <div class="mt-8 flex items-center">
+                    <a href="injury.html">
+                        <button id="backButton">Back</button>
+                    </a>
+                    <button id="nextButton" onclick="goToNextPage()">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer w-full text-white text-center py-4">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Health sync hub. All rights reserved.</p>
+            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+        </div>
+    </footer>
+
+    <!-- Updated JavaScript -->
+    <script>
+        function goToNextPage() {
+            // Check if any radio button is selected
+            const selectedOption = document.querySelector('input[name="days"]:checked');
+            if (selectedOption) {
+                // Redirect to the next page if a radio button is selected
+                window.location.href = 'workout_type.html';
+            } else {
+                // Show an alert if no option is selected
+                alert('Please select an option before proceeding.');
+            }
+        }
+
+        // Add interactivity to highlight the selected box
+        const dayBoxes = document.querySelectorAll('.day-box');
+        dayBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                dayBoxes.forEach(b => b.classList.remove('selected'));
+                box.classList.add('selected');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

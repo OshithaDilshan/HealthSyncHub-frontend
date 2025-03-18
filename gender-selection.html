@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <title>Gender Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #000000;
+            padding: 0 1rem;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .gender-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #808080;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .gender-button:hover {
+            background-color: #666666;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gender-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #595959;
+        }
+
+        footer {
+            font-size: 0.875rem;
+            line-height: 1.25;
+            padding: 1rem;
+            text-align: center;
+            background-color: #497d59;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Tablet Styles */
+        @media screen and (min-width: 768px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .button-container {
+                flex-direction: row;
+                justify-content: center;
+                max-width: none;
+                gap: 2rem;
+            }
+
+            .gender-button {
+                width: 180px;
+                font-size: 1.125rem;
+            }
+        }
+
+        /* Desktop Styles */
+        @media screen and (min-width: 1024px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .button-container {
+                gap: 3rem;
+            }
+
+            .gender-button {
+                width: 200px;
+                padding: 1.25rem;
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media screen and (max-width: 360px) {
+            .main-container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .gender-button {
+                padding: 0.875rem;
+            }
+        }
+
+        /* Handle landscape orientation on mobile */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            h1 {
+                margin-bottom: 1rem;
+            }
+
+            .button-container {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <h1>Let us know your gender</h1>
+        <div class="button-container">
+            <button class="gender-button" onclick="goToDetailsPage('Male')">Male</button>
+            <button class="gender-button" onclick="goToDetailsPage('Female')">Female</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+        <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+    </footer>
+    <script>
+        function goToDetailsPage(gender) {
+            window.location.href = `details.html?gender=${gender}`;
+        }
+    </script>
+</body>
+
+</html>
