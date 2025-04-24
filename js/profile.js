@@ -11,39 +11,37 @@ async function getProfileDetails() {
         return data;
     } catch (error) {
         console.error("Error fetching user data:", error);
-        return null; // Return null in case of an error
+        return null;
     }
 };
 
 //age calculation function
 function calculateAge(dob) {
     try {
-      const birthDate = new Date(dob); // dob should be like "2000-04-20"
-      const today = new Date();
-  
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-  
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-  
-      return age;
-    } catch (error) {
-      console.error("Error calculating age:", error);
-      return null;
-    }
-  }
-  
+        const birthDate = new Date(dob);
+        const today = new Date();
 
-//bmi calculation function
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        return age;
+    } catch (error) {
+        console.error("Error calculating age:", error);
+        return null;
+    }
+}
+
+
+//BMI calculation function
 function bmiCalculation(weight, height) {
     try {
-        // Extract numeric values from strings like "70kg" or "175cm"
         const weightNum = parseFloat(weight.replace(/[^\d.]/g, ''));
         const heightNum = parseFloat(height.replace(/[^\d.]/g, ''));
 
-        // Validate inputs
         if (!weightNum || !heightNum || heightNum <= 0) {
             return "N/A";
         }
@@ -57,19 +55,17 @@ function bmiCalculation(weight, height) {
     }
 }
 
-//bmr calculation function
+//BMR calculation function
 function bmrCalculation(weight, height, age, gender) {
     try {
         const weightNum = parseFloat(weight.replace(/[^\d.]/g, ''));
         const heightNum = parseFloat(height.replace(/[^\d.]/g, ''));
         const ageNum = parseInt(age);
 
-        // Validate inputs
         if (!weightNum || !heightNum || !ageNum || heightNum <= 0 || ageNum <= 0) {
             return "N/A";
         }
 
-        // Calculate BMR
         let bmr;
         if (gender.toLowerCase() === "male") {
             bmr = 10 * weightNum + 6.25 * heightNum - 5 * ageNum + 5;
@@ -86,6 +82,22 @@ function bmrCalculation(weight, height, age, gender) {
     }
 }
 
+// Show the logout confirmation modal
+function showLogoutModal() {
+    document.getElementById("logoutModal").classList.remove("hidden");
+}
+
+// Hide the logout confirmation modal
+function closeLogoutModal() {
+    document.getElementById("logoutModal").classList.add("hidden");
+}
+
+// Confirm logout
+function confirmLogout() {
+    window.location.href = "index.html";
+}
+
+
 
 // Function to populate the user data into the HTML
 async function loadUserData() {
@@ -94,7 +106,7 @@ async function loadUserData() {
         document.getElementById("name").textContent = userData.firstName || "N/A";
         document.getElementById("email").textContent = userData.email || "N/A";
         document.getElementById("sex").textContent = userData.gender || "N/A";
-        document.getElementById("age").textContent = calculateAge(userData.dob)  || "N/A";
+        document.getElementById("age").textContent = calculateAge(userData.dob) || "N/A";
         document.getElementById("weight").textContent = userData.weight || "N/A";
         document.getElementById("height").textContent = userData.height || "N/A";
         document.getElementById("bmr").textContent = bmrCalculation(userData.weight, userData.height, calculateAge(userData.dob), userData.gender) || "N/A";
