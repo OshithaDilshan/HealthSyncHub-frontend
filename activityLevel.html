@@ -279,11 +279,35 @@
             continueButton.disabled = false;
         }
 
-        function navigateToSuccess() {
+        
+        localStorage.setItem("activity", selectActivity);
+        
+        const email = localStorage.getItem("email"); 
+        const password = localStorage.getItem("password");
+        const cPassword = localStorage.getItem("confirmPassword");
+        const fName = localStorage.getItem("firstName");
+        const lName = localStorage.getItem("lastName"); 
+        const gender = localStorage.getItem("gender");
+        const goal = localStorage.getItem("goal");
+        const activityLevel = localStorage.getItem("activity");
+
+        async function navigateToSuccess () {
             if (selectedActivity) {
+                const response = await fetch("http://localhost:8000/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({email,password,cPassword,fName,lName,gender,goal,activityLevel })
+            });
+
+            window.location.href = 'successful.html';
+
+            // Clear localStorage after submission
+            localStorage.clear();
                 window.location.href = 'successful.html';
             }
         }
+
+        
     </script>
 </body>
 </html>

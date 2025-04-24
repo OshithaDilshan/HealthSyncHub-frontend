@@ -257,6 +257,12 @@
         }
 
         goalInput.addEventListener('change', validateForm);
+
+        localStorage.setItem("goal", goalInput);
+        
+        if(continueButton){
+            window.location.href ="activityLevel.html";
+        }
     </script>
 </body>
 </html>

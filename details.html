@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <link rel="icon" href="assets/tabicon.png" type="image/png">
+    <link rel="icon" href="assets/tabicon.png" type="image/png">
 
     <title>Health Sync Hub - User Information</title>
     <style>
@@ -48,8 +49,8 @@
             position: relative;
         }
 
-        
-		.container-title {
+
+        .container-title {
             text-align: center;
             margin-bottom: 2.5rem;
             /* Removed these two lines:
@@ -125,16 +126,20 @@
             justify-content: center;
             align-items: center;
             margin-top: 3rem;
-            gap: 6rem; /* Increased from 2rem to 6rem for more spacing */
+            gap: 6rem;
+            /* Increased from 2rem to 6rem for more spacing */
             width: 100%;
-            max-width: 600px; /* Increased to accommodate larger gap */
+            max-width: 600px;
+            /* Increased to accommodate larger gap */
             margin-left: auto;
             margin-right: auto;
-            padding: 0 2rem; /* Added padding for better spacing */
+            padding: 0 2rem;
+            /* Added padding for better spacing */
         }
 
 
-        #backButton, #continueButton {
+        #backButton,
+        #continueButton {
             padding: 0.75rem 1.5rem;
             font-size: 1.1rem;
             width: 130px;
@@ -217,13 +222,14 @@
             .container {
                 padding: 2rem;
             }
-            
+
             .container-title h2 {
                 font-size: 1.75rem;
             }
-            
+
             .button-container {
-                gap: 4rem; /* Reduced gap for medium screens but still larger than original */
+                gap: 4rem;
+                /* Reduced gap for medium screens but still larger than original */
                 max-width: 100%;
                 padding: 0 1.5rem;
             }
@@ -233,7 +239,7 @@
             .container {
                 padding: 1.5rem;
             }
-            
+
             .container-title h2 {
                 font-size: 1.5rem;
             }
@@ -248,9 +254,10 @@
                 max-width: 300px;
             }
 
-             .button-container {
+            .button-container {
                 flex-direction: column;
-                gap: 2rem; /* Increased vertical gap for mobile */
+                gap: 2rem;
+                /* Increased vertical gap for mobile */
                 padding: 0 1rem;
             }
 
@@ -277,7 +284,8 @@
                     <div class="input-group">
                         <label for="height">Height</label>
                         <div style="display: flex; gap: 10px;">
-                            <input type="number" id="height" name="height" placeholder="Height" min="0" step="any" required>
+                            <input type="number" id="height" name="height" placeholder="Height" min="0" step="any"
+                                required>
                             <select id="heightUnit" name="heightUnit" required>
                                 <option value="cm">cm</option>
                                 <option value="ft">ft</option>
@@ -287,7 +295,8 @@
                     <div class="input-group">
                         <label for="weight">Weight</label>
                         <div style="display: flex; gap: 10px;">
-                            <input type="number" id="weight" name="weight" placeholder="Weight" min="0" step="any" required>
+                            <input type="number" id="weight" name="weight" placeholder="Weight" min="0" step="any"
+                                required>
                             <select id="weightUnit" name="weightUnit" required>
                                 <option value="lbs">lbs</option>
                                 <option value="kg">kg</option>
@@ -334,4 +343,5 @@
         weightInput.addEventListener('input', validateForm);
     </script>
 </body>
+
 </html>

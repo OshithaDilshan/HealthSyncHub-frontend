@@ -216,156 +216,80 @@
     </footer>
 
     <script>
-        window.onload = function () {
-            const passwordInputs = document.querySelectorAll('input[type="password"]');
-            passwordInputs.forEach(input => {
-                const icon = input.nextElementSibling;
-                input.type = "password";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            });
-        }
-
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
+        function togglePassword(id) {
+            const input = document.getElementById(id);
             const icon = input.nextElementSibling;
-
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            } else {
-                input.type = "password";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            }
+            input.type = input.type === "password" ? "text" : "password";
+            icon.classList.toggle("fa-eye");
+            icon.classList.toggle("fa-eye-slash");
         }
 
-        function clearError(elementId) {
-            const element = document.getElementById(elementId);
-            element.parentElement.classList.remove('error');
-            element.parentElement.classList.remove('valid');
+        function clearError(id) {
+            const container = document.getElementById(id).parentElement;
+            container.classList.remove("error", "valid");
         }
 
-        function showError(elementId) {
-            const element = document.getElementById(elementId);
-            element.parentElement.classList.add('error');
-            element.parentElement.classList.remove('valid');
+        function showError(id, message) {
+            const container = document.getElementById(id).parentElement;
+            container.classList.add("error");
+            container.querySelector(".error-message").textContent = message;
         }
 
-        function showValid(elementId) {
-            const element = document.getElementById(elementId);
-            element.parentElement.classList.add('valid');
-            element.parentElement.classList.remove('error');
+        function showValid(id) {
+            const container = document.getElementById(id).parentElement;
+            container.classList.add("valid");
         }
 
-        document.getElementById('email').addEventListener('input', function (e) {
+        document.getElementById("email").addEventListener("input", function (e) {
             const email = e.target.value;
-            const errorElement = document.getElementById('emailError');
+            const domain = email.split("@")[1]?.toLowerCase();
+            const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
 
-            clearError('email');
+            clearError("email");
 
-            if (email) {
-                const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-                if (!emailRegex.test(email)) {
-                    showError('email');
-                    errorElement.textContent = 'Please enter a valid email format (e.g., name@gmail.com)';
-                    return;
-                }
-
-                const domain = email.split('@')[1]?.toLowerCase();
-
-                if (domain && domain.length < 4) {
-                    showError('email');
-                    errorElement.textContent = 'Invalid email domain';
-                    return;
-                }
-
-                const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
-                if (!validTLDs.some(tld => domain?.endsWith(tld))) {
-                    showError('email');
-                    errorElement.textContent = 'Please use a valid domain extension (.com, .org, etc.)';
-                    return;
-                }
-
-                if (domain) {
-                    if (domain.startsWith('gmai') || domain.startsWith('yaho') ||
-                        domain.startsWith('hotmai') || domain.startsWith('outloo') ||
-                        domain.includes('.con')) {
-                        showError('email');
-                       /* errorElement.textContent = 'Did you mean gmail.com, yahoo.com, hotmail.com, or outlook.com?';*/
-                        return;
-                    }
-                }
-
-                // If all validations pass, show valid state
-                showValid('email');
-                errorElement.textContent = '';
+            if (!emailRegex.test(email)) {
+                showError("email", "Please enter a valid email format (e.g., name@gmail.com)");
+            } else if (domain?.length < 4 || !validTLDs.some(tld => domain.endsWith(tld))) {
+                showError("email", "Please use a valid domain extension (.com, .org, etc.)");
+            } else {
+                showValid("email");
             }
         });
 
         function validateForm() {
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirmPassword');
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmPassword");
             let isValid = true;
 
-            clearError('email');
-            clearError('password');
-            clearError('confirmPassword');
+            clearError("email");
+            clearError("password");
+            clearError("confirmPassword");
 
             if (!email.value) {
-                showError('email');
-                document.getElementById('emailError').textContent = 'Email is required';
+                showError("email", "Email is required");
                 isValid = false;
-            } else {
-                const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                const domain = email.value.split('@')[1]?.toLowerCase();
-                const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
-
-                if (!emailRegex.test(email.value)) {
-                    showError('email');
-                    document.getElementById('emailError').textContent = 'Please enter a valid email format';
-                    isValid = false;
-                } else if (domain && domain.length < 4) {
-                    showError('email');
-                    document.getElementById('emailError').textContent = 'Invalid email domain';
-                    isValid = false;
-                } else if (!validTLDs.some(tld => domain?.endsWith(tld))) {
-                    showError('email');
-                    document.getElementById('emailError').textContent = 'Please use a valid domain extension (.com, .org, etc.)';
-                    isValid = false;
-                } else {
-                    showValid('email');
-                }
             }
 
             if (!password.value) {
-                showError('password');
-                document.getElementById('passwordError').textContent = 'Password is required';
+                showError("password", "Password is required");
                 isValid = false;
             } else if (password.value.length < 8) {
-                showError('password');
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                showError("password", "Password must be at least 8 characters");
                 isValid = false;
             }
 
-            if (!confirmPassword.value) {
-                showError('confirmPassword');
-                document.getElementById('confirmPasswordError').textContent = 'Please confirm your password';
-                isValid = false;
-            } else if (password.value !== confirmPassword.value) {
-                showError('confirmPassword');
-                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+            if (!confirmPassword.value || password.value !== confirmPassword.value) {
+                showError("confirmPassword", "Passwords do not match");
                 isValid = false;
             }
 
             if (isValid) {
-                window.location.href = 'getdetails.html';
-                return true;
+                localStorage.setItem("email", email.value);
+                localStorage.setItem("password", password.value);
+                window.location.href = "getdetails.html";
             }
-            return false;
         }
     </script>
 </body>

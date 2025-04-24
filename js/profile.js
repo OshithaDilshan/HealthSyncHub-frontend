@@ -1,7 +1,7 @@
 // Function to fetch user profile details
 async function getProfileDetails() {
     try {
-        const res = await fetch("http://localhost:8000/meal/67459f97327a6a12a19518de", {
+        const res = await fetch("http://localhost:8000/user/6809dc1826023bc4b549636a", {
             method: "GET",
         });
         if (!res.ok) {
@@ -15,21 +15,93 @@ async function getProfileDetails() {
     }
 };
 
+//age calculation function
+function calculateAge(dob) {
+    try {
+      const birthDate = new Date(dob); // dob should be like "2000-04-20"
+      const today = new Date();
+  
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+  
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+  
+      return age;
+    } catch (error) {
+      console.error("Error calculating age:", error);
+      return null;
+    }
+  }
+  
+
+//bmi calculation function
+function bmiCalculation(weight, height) {
+    try {
+        // Extract numeric values from strings like "70kg" or "175cm"
+        const weightNum = parseFloat(weight.replace(/[^\d.]/g, ''));
+        const heightNum = parseFloat(height.replace(/[^\d.]/g, ''));
+
+        // Validate inputs
+        if (!weightNum || !heightNum || heightNum <= 0) {
+            return "N/A";
+        }
+
+        const heightM = heightNum / 100;
+        const bmi = weightNum / (heightM * heightM);
+        return bmi.toFixed(2);
+    } catch (error) {
+        console.error("Error calculating BMI:", error);
+        return "N/A";
+    }
+}
+
+//bmr calculation function
+function bmrCalculation(weight, height, age, gender) {
+    try {
+        const weightNum = parseFloat(weight.replace(/[^\d.]/g, ''));
+        const heightNum = parseFloat(height.replace(/[^\d.]/g, ''));
+        const ageNum = parseInt(age);
+
+        // Validate inputs
+        if (!weightNum || !heightNum || !ageNum || heightNum <= 0 || ageNum <= 0) {
+            return "N/A";
+        }
+
+        // Calculate BMR
+        let bmr;
+        if (gender.toLowerCase() === "male") {
+            bmr = 10 * weightNum + 6.25 * heightNum - 5 * ageNum + 5;
+        } else if (gender.toLowerCase() === "female") {
+            bmr = 10 * weightNum + 6.25 * heightNum - 5 * ageNum - 161;
+        } else {
+            return "Invalid gender";
+        }
+
+        return bmr.toFixed(2);
+    } catch (error) {
+        console.error("Error calculating BMR:", error);
+        return "N/A";
+    }
+}
+
+
 // Function to populate the user data into the HTML
 async function loadUserData() {
     const userData = await getProfileDetails();
     if (userData) {
-        document.getElementById("name").textContent = userData.name || "N/A";
+        document.getElementById("name").textContent = userData.firstName || "N/A";
         document.getElementById("email").textContent = userData.email || "N/A";
-        document.getElementById("sex").textContent = userData.sex || "N/A";
-        document.getElementById("age").textContent = userData.age || "N/A";
+        document.getElementById("sex").textContent = userData.gender || "N/A";
+        document.getElementById("age").textContent = calculateAge(userData.dob)  || "N/A";
         document.getElementById("weight").textContent = userData.weight || "N/A";
         document.getElementById("height").textContent = userData.height || "N/A";
-        document.getElementById("bmr").textContent = userData.bmr || "N/A";
-        document.getElementById("bmi").textContent = userData.bmi || "N/A";
-        document.getElementById("physicalInjuries").textContent = userData.physicalInjuries || "N/A";
-        document.getElementById("allergies").textContent = userData.allergies || "N/A";
-        document.getElementById("medicalConditions").textContent = userData.medicalConditions || "N/A";
+        document.getElementById("bmr").textContent = bmrCalculation(userData.weight, userData.height, calculateAge(userData.dob), userData.gender) || "N/A";
+        document.getElementById("bmi").textContent = bmiCalculation(userData.weight, userData.height) || "N/A";
+        document.getElementById("physicalInjuries").textContent = userData.lastName || "N/A";
+        document.getElementById("allergies").textContent = userData.lastName || "N/A";
+        document.getElementById("medicalConditions").textContent = userData.lastName || "N/A";
 
         // Access the image element and set the src attribute
         document.getElementById("userImage").src = userData.image || "default-image.jpg";

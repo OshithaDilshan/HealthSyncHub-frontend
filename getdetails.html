@@ -295,6 +295,12 @@
         firstNameInput.addEventListener('input', validateForm);
         lastNameInput.addEventListener('input', validateForm);
         genderInput.addEventListener('change', validateForm);
+
+        localStorage.setItem("firstName", firstNameInput);
+        localStorage.setItem("lastName", lastNameInput);
+        localStorage.setItem("gender", genderInput);
+
+        window.location.href ="details.html";
     </script>
 </body>
 </html>
