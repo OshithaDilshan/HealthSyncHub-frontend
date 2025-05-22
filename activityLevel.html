@@ -280,30 +280,73 @@
         }
 
         
-        localStorage.setItem("activity", selectActivity);
-        
-        const email = localStorage.getItem("email"); 
-        const password = localStorage.getItem("password");
-        const cPassword = localStorage.getItem("confirmPassword");
-        const fName = localStorage.getItem("firstName");
-        const lName = localStorage.getItem("lastName"); 
-        const gender = localStorage.getItem("gender");
-        const goal = localStorage.getItem("goal");
-        const activityLevel = localStorage.getItem("activity");
-
-        async function navigateToSuccess () {
-            if (selectedActivity) {
-                const response = await fetch("http://localhost:8000/user", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email,password,cPassword,fName,lName,gender,goal,activityLevel })
+      
+        function selectActivity(activity, element) {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach(step => {
+                step.classList.remove('active');
+                step.querySelector('.star').style.color = '#ccc';
             });
 
-            window.location.href = 'successful.html';
+            element.classList.add('active');
+            element.querySelector('.star').style.color = '#4CAF50';
+            selectedActivity = activity;
+            continueButton.disabled = false;
+            
+            
+            localStorage.setItem('activity', activity);
+        }
 
-            // Clear localStorage after submission
-            localStorage.clear();
-                window.location.href = 'successful.html';
+        async function navigateToSuccess() {
+            if (!selectedActivity) {
+                alert('Please select an activity level');
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                
+                const continueButton = document.getElementById('continueButton');
+                continueButton.disabled = true;
+                continueButton.textContent = 'Saving...';
+
+                
+                const response = await fetch('http://localhost:5000/api/user/activity-level', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ activityLevel: selectedActivity })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update activity level');
+                }
+
+                
+                localStorage.setItem('activity', selectedActivity);
+                
+                
+                window.location.href = 'Diet_restrictions.html';
+
+            } catch (error) {
+                console.error('Error updating activity level:', error);
+                alert('Failed to save activity level. Please try again.');
+                
+                
+                const continueButton = document.getElementById('continueButton');
+                if (continueButton) {
+                    continueButton.disabled = false;
+                    continueButton.textContent = 'Submit';
+                }
             }
         }
 

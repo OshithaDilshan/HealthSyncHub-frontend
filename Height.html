@@ -57,22 +57,22 @@
             </div>
         </div>
 
-        <!-- Main Content -->
+        
         <div class="main-content custom-bg flex-grow p-8 flex justify-center items-center">
             <div class="calculation-box bg-gray-200 p-6 rounded-lg text-center max-w-md w-full">
                 <h1 class="text-lg font-semibold mb-4">Your Height</h1>
 
-                <!-- Height Display Section -->
+                
                 <div id="heightSection" class="mb-6">
                     <p id="heightDisplay" class="height-text">50</p>
-                    <!-- This line will show the height from the database -->
+                    
                 </div>
 
-                <!-- Instructions and Input -->
+                
                 <p class="text-sm mt-4">If not, please enter your height below</p>
                 <input type="text" id="heightInput" class="height-input mt-2" placeholder="Enter your height">
 
-                <div class="button-container"><!-- Next Button -->
+                <div class="button-container">
                     <a href="Home.html">
                         <button id="backButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Back</button>
                     </a>
@@ -95,22 +95,22 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Simulate fetching height from the database
-            const heightFromDatabase = '170 cm'; // Replace with real data from your backend
+            
+            const heightFromDatabase = '170 cm'; 
 
             const heightDisplay = document.getElementById('heightDisplay');
             const heightInput = document.getElementById('heightInput');
 
-            // Display height from database
+            
             heightDisplay.innerText = heightFromDatabase || '---';
 
-            // Next Button logic
+            
             document.getElementById('nextButton').addEventListener('click', function () {
                 const newHeight = heightInput.value.trim();
 
-                // Check if a new height is entered
+                
                 if (newHeight && newHeight !== heightFromDatabase) {
-                    // Send the new height to the backend
+                    
                     fetch('/updateHeight', {
                         method: 'POST',
                         headers: {
@@ -121,7 +121,7 @@
                         .then(response => {
                             if (response.ok) {
                                 alert('Height updated successfully!');
-                                window.location.href = 'Weight.html'; // Navigate to the next page
+                                window.location.href = 'Weight.html'; 
                             } else {
                                 alert('Failed to update height. Please try again.');
                             }
@@ -131,7 +131,7 @@
                             alert('An error occurred. Please try again.');
                         });
                 } else {
-                    // Navigate to the next page without updating the database
+                    
                     window.location.href = 'Weight.html';
                 }
             });

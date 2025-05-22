@@ -190,6 +190,21 @@
             <h3>Health Sync Hub</h3>
 
             <div class="input-container">
+                <input type="text" id="username" placeholder="Username" required>
+                <div class="error-message" id="usernameError"></div>
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <div class="error-message" id="firstNameError"></div>
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <div class="error-message" id="lastNameError"></div>
+            </div>
+
+            <div class="input-container">
                 <input type="email" id="email" placeholder="Email" required>
                 <div class="error-message" id="emailError"></div>
             </div>
@@ -215,7 +230,10 @@
         <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
     </footer>
 
+    <!-- Add auth.js -->
+    <script src="js/auth.js"></script>
     <script>
+        // Toggle password visibility
         function togglePassword(id) {
             const input = document.getElementById(id);
             const icon = input.nextElementSibling;
@@ -224,31 +242,46 @@
             icon.classList.toggle("fa-eye-slash");
         }
 
+        // Clear error message
         function clearError(id) {
             const container = document.getElementById(id).parentElement;
             container.classList.remove("error", "valid");
         }
 
+        // Show error message
         function showError(id, message) {
             const container = document.getElementById(id).parentElement;
             container.classList.add("error");
-            container.querySelector(".error-message").textContent = message;
+            const errorElement = container.querySelector(".error-message");
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
         }
 
+        // Show valid input
         function showValid(id) {
             const container = document.getElementById(id).parentElement;
             container.classList.add("valid");
+            container.classList.remove("error");
+            const errorElement = container.querySelector(".error-message");
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
         }
 
+        // Email validation
         document.getElementById("email").addEventListener("input", function (e) {
             const email = e.target.value;
             const domain = email.split("@")[1]?.toLowerCase();
             const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            const validTLDs = ['.com', '.org', '.edu', '.gov', '.net'];
+            const validTLDs = ['.com', '.org', '.edu', '.gov', '.net', '.io', '.me', '.co.uk', '.ca', '.au'];
 
             clearError("email");
 
-            if (!emailRegex.test(email)) {
+            if (!email) {
+                showError("email", "Email is required");
+            } else if (!emailRegex.test(email)) {
                 showError("email", "Please enter a valid email format (e.g., name@gmail.com)");
             } else if (domain?.length < 4 || !validTLDs.some(tld => domain.endsWith(tld))) {
                 showError("email", "Please use a valid domain extension (.com, .org, etc.)");
@@ -257,40 +290,152 @@
             }
         });
 
-        function validateForm() {
-            const email = document.getElementById("email");
-            const password = document.getElementById("password");
-            const confirmPassword = document.getElementById("confirmPassword");
+        // Form validation and submission
+        async function validateForm() {
+            // Get form values
+            const username = document.getElementById("username").value.trim();
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
             let isValid = true;
 
+            // Clear previous errors
+            clearError("firstName");
+            clearError("lastName");
             clearError("email");
             clearError("password");
             clearError("confirmPassword");
 
-            if (!email.value) {
+            // Validate username
+            if (!username) {
+                showError("username", "Username is required");
+                isValid = false;
+            } else if (username.length < 2) {
+                showError("username", "Username must be at least 2 characters");
+                isValid = false;
+            }
+
+            // Validate first name
+            if (!firstName) {
+                showError("firstName", "First name is required");
+                isValid = false;
+            } else if (firstName.length < 2) {
+                showError("firstName", "First name must be at least 2 characters");
+                isValid = false;
+            }
+
+            // Validate last name
+            if (!lastName) {
+                showError("lastName", "Last name is required");
+                isValid = false;
+            } else if (lastName.length < 2) {
+                showError("lastName", "Last name must be at least 2 characters");
+                isValid = false;
+            }
+
+            // Validate email
+            if (!email) {
                 showError("email", "Email is required");
                 isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("email", "Please enter a valid email address");
+                isValid = false;
             }
 
-            if (!password.value) {
+            // Validate password
+            if (!password) {
                 showError("password", "Password is required");
                 isValid = false;
-            } else if (password.value.length < 8) {
+            } else if (password.length < 8) {
                 showError("password", "Password must be at least 8 characters");
+                isValid = false;
+            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+                showError("password", "Password must contain at least one uppercase letter, one lowercase letter, and one number");
                 isValid = false;
             }
 
-            if (!confirmPassword.value || password.value !== confirmPassword.value) {
+            // Validate confirm password
+            if (!confirmPassword) {
+                showError("confirmPassword", "Please confirm your password");
+                isValid = false;
+            } else if (password !== confirmPassword) {
                 showError("confirmPassword", "Passwords do not match");
                 isValid = false;
             }
 
-            if (isValid) {
-                localStorage.setItem("email", email.value);
-                localStorage.setItem("password", password.value);
+            if (!isValid) return;
+
+            // If validation passes, register the user
+            try {
+                // Show loading state
+                const submitBtn = document.querySelector('.next-button');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Creating Account...';
+
+                // Call the register function from auth.js with all required fields
+                const userData = await auth.register(username,email, password, firstName, lastName);
+                
+                // Registration successful, redirect to getdetails.html
                 window.location.href = "getdetails.html";
+            } catch (error) {
+                console.error('Registration failed:', error);
+                
+                // Show appropriate error message based on error type
+                let errorMessage = error.message || 'Registration failed. Please try again.';
+                
+                // Check for duplicate email error
+                if (error.message && error.message.toLowerCase().includes('user already exists')) {
+                    showError("email", "An account with this email already exists");
+                } else {
+                    // Show a generic error message at the bottom of the form
+                    const errorContainer = document.createElement('div');
+                    errorContainer.className = 'form-error-message';
+                    errorContainer.textContent = errorMessage;
+                    errorContainer.style.color = '#dc3545';
+                    errorContainer.style.marginTop = '10px';
+                    errorContainer.style.textAlign = 'center';
+                    
+                    // Remove any existing error messages
+                    const existingError = document.querySelector('.form-error-message');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+                    
+                    // Add the new error message
+                    const form = document.querySelector('form');
+                    if (form) {
+                        form.appendChild(errorContainer);
+                    }
+                }
+                
+                // Re-enable submit button
+                const submitBtn = document.querySelector('.next-button');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Create Account';
+                }
+                
+                // Scroll to the top to show the error message
+                window.scrollTo(0, 0);
+                return false;
             }
         }
+
+        // Add event listener for form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.login-container');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const isValid = validateForm();
+                if (isValid) {
+                    // Registration will be handled in validateForm
+                    // No need to redirect here since it's handled by auth.js
+                }
+            });
+        });
     </script>
 </body>
 

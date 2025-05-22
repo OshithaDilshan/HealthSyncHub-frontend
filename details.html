@@ -273,40 +273,95 @@
     <div class="main-container">
         <div class="container">
             <div class="container-title">
-                <h2>Let's get to know you better</h2>
+                <h2>Update Your Health Details</h2>
+                <p>Keep your health information up to date</p>
             </div>
-            <form id="userInfoForm" action="primarygoal.html">
+            <form id="userInfoForm">
                 <div class="input-row">
                     <div class="input-group">
-                        <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" name="birthday" required>
+                        <label for="birthday">Date of Birth</label>
+                        <input 
+                            type="date" 
+                            id="birthday" 
+                            name="birthday" 
+                            required
+                            class="form-input"
+                        >
+                        <div class="error-message" id="birthdayError"></div>
                     </div>
+
                     <div class="input-group">
                         <label for="height">Height</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" id="height" name="height" placeholder="Height" min="0" step="any"
-                                required>
-                            <select id="heightUnit" name="heightUnit" required>
+                        <div class="input-field-container">
+                            <input 
+                                type="number" 
+                                id="height" 
+                                name="height" 
+                                placeholder="Enter height"
+                                min="100" 
+                                max="250"
+                                step="0.1"
+                                required
+                                class="form-input"
+                            >
+                            <select 
+                                id="heightUnit" 
+                                name="heightUnit" 
+                                class="form-select"
+                            >
                                 <option value="cm">cm</option>
                                 <option value="ft">ft</option>
                             </select>
                         </div>
+                        <div class="error-message" id="heightError"></div>
                     </div>
+
                     <div class="input-group">
                         <label for="weight">Weight</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" id="weight" name="weight" placeholder="Weight" min="0" step="any"
-                                required>
-                            <select id="weightUnit" name="weightUnit" required>
-                                <option value="lbs">lbs</option>
+                        <div class="input-field-container">
+                            <input 
+                                type="number" 
+                                id="weight" 
+                                name="weight" 
+                                placeholder="Enter weight"
+                                min="30" 
+                                max="300"
+                                step="0.1"
+                                required
+                                class="form-input"
+                            >
+                            <select 
+                                id="weightUnit" 
+                                name="weightUnit" 
+                                class="form-select"
+                            >
                                 <option value="kg">kg</option>
+                                <option value="lbs">lbs</option>
                             </select>
                         </div>
+                        <div class="error-message" id="weightError"></div>
                     </div>
                 </div>
+
+                <div class="input-group">
+                    <label for="healthGoals">Health Goals (Optional)</label>
+                    <textarea 
+                        id="healthGoals" 
+                        name="healthGoals" 
+                        placeholder="E.g., Lose weight, build muscle, improve endurance..."
+                        rows="3"
+                        class="form-textarea"
+                    ></textarea>
+                    <div class="error-message" id="healthGoalsError"></div>
+                </div>
+
                 <div class="button-container">
-                    <button type="button" id="backButton" onclick="window.location.href='getdetails.html'">Back</button>
-                    <button type="submit" id="continueButton" disabled>Continue</button>
+                    <button type="button" id="backButton" class="btn btn-secondary" onclick="window.history.back()">
+                        Back
+                    </button>
+                    <button type="submit" id="saveButton" class="btn btn-primary">
+                        Save Changes
+                    </button>
                 </div>
             </form>
         </div>
@@ -318,29 +373,289 @@
     </footer>
 
     <script>
+        // DOM Elements
+        const userInfoForm = document.getElementById('userInfoForm');
         const birthdayInput = document.getElementById('birthday');
         const heightInput = document.getElementById('height');
         const weightInput = document.getElementById('weight');
-        const continueButton = document.getElementById('continueButton');
+        const heightUnitSelect = document.getElementById('heightUnit');
+        const weightUnitSelect = document.getElementById('weightUnit');
+        const healthGoalsInput = document.getElementById('healthGoals');
+        const saveButton = document.getElementById('saveButton');
 
-        const today = new Date();
-        birthdayInput.max = today.toISOString().split('T')[0];
-
-        const minDate = new Date();
-        minDate.setFullYear(minDate.getFullYear() - 120);
-        birthdayInput.min = minDate.toISOString().split('T')[0];
-
-        function validateForm() {
-            const birthday = birthdayInput.value;
-            const height = heightInput.value;
-            const weight = weightInput.value;
-
-            continueButton.disabled = !(birthday && height && weight);
+        
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            throw new Error('No authentication token found');
         }
 
-        birthdayInput.addEventListener('input', validateForm);
-        heightInput.addEventListener('input', validateForm);
-        weightInput.addEventListener('input', validateForm);
+        
+        const today = new Date();
+        const minDate = new Date();
+        minDate.setFullYear(today.getFullYear() - 120);
+        
+        
+        function formatDate(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.toISOString().split('T')[0];
+        }
+
+        
+        function cmToFeet(cm) {
+            return (cm / 30.48).toFixed(2);
+        }
+
+        
+        function feetToCm(feet) {
+            return Math.round(feet * 30.48);
+        }
+
+        
+        function kgToLbs(kg) {
+            return (kg * 2.20462).toFixed(2);
+        }
+
+        
+        function lbsToKg(lbs) {
+            return (lbs / 2.20462).toFixed(2);
+        }
+
+        
+        function showError(field, message) {
+            const errorElement = document.getElementById(`${field}Error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        
+        function clearError(field) {
+            const errorElement = document.getElementById(`${field}Error`);
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }
+
+        
+        function validateForm() {
+            let isValid = true;
+
+            
+            if (!birthdayInput.value) {
+                showError('birthday', 'Date of birth is required');
+                isValid = false;
+            } else {
+                const dob = new Date(birthdayInput.value);
+                if (dob > today) {
+                    showError('birthday', 'Date of birth cannot be in the future');
+                    isValid = false;
+                } else if (dob < minDate) {
+                    showError('birthday', 'Please enter a valid date');
+                    isValid = false;
+                } else {
+                    clearError('birthday');
+                }
+            }
+
+            
+            if (!heightInput.value) {
+                showError('height', 'Height is required');
+                isValid = false;
+            } else {
+                const height = parseFloat(heightInput.value);
+                if (heightUnitSelect.value === 'cm' && (height < 100 || height > 250)) {
+                    showError('height', 'Height must be between 100cm and 250cm');
+                    isValid = false;
+                } else if (heightUnitSelect.value === 'ft' && (height < 3.28 || height > 8.2)) {
+                    showError('height', 'Height must be between 3.28ft and 8.2ft');
+                    isValid = false;
+                } else {
+                    clearError('height');
+                }
+            }
+
+            
+            if (!weightInput.value) {
+                showError('weight', 'Weight is required');
+                isValid = false;
+            } else {
+                const weight = parseFloat(weightInput.value);
+                if (weightUnitSelect.value === 'kg' && (weight < 30 || weight > 300)) {
+                    showError('weight', 'Weight must be between 30kg and 300kg');
+                    isValid = false;
+                } else if (weightUnitSelect.value === 'lbs' && (weight < 66 || weight > 661)) {
+                    showError('weight', 'Weight must be between 66lbs and 661lbs');
+                    isValid = false;
+                } else {
+                    clearError('weight');
+                }
+            }
+
+            return isValid;
+        }
+
+        
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('http://localhost:5000/api/user/profile/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
+                }
+
+                const data = await response.json();
+                
+                if (data && data.data) {
+                    const profile = data.data;
+                    
+                    
+                    if (profile.dateOfBirth) {
+                        birthdayInput.value = formatDate(profile.dateOfBirth);
+                    }
+                    
+                    if (profile.height) {
+                        heightInput.value = profile.height;
+                        heightUnitSelect.value = 'cm';
+                    }
+                    
+                    if (profile.weight) {
+                        weightInput.value = profile.weight;
+                        weightUnitSelect.value = 'kg';
+                    }
+                    
+                    if (profile.healthGoals) {
+                        healthGoalsInput.value = profile.healthGoals;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                alert('Failed to load profile. ' + error.message);
+            } finally {
+                
+                saveButton.disabled = false;
+                saveButton.textContent = 'Save Changes';
+            }
+        }
+
+        
+        function handleUnitChange() {
+            
+            if (heightInput.value) {
+                const height = parseFloat(heightInput.value);
+                if (heightUnitSelect.value === 'ft') {
+                    // Convert cm to ft
+                    heightInput.value = cmToFeet(height);
+                } else {
+                    
+                    heightInput.value = feetToCm(height);
+                }
+            }
+            
+            
+            if (weightInput.value) {
+                const weight = parseFloat(weightInput.value);
+                if (weightUnitSelect.value === 'lbs') {
+                    
+                    weightInput.value = kgToLbs(weight);
+                } else {
+                    
+                    weightInput.value = lbsToKg(weight);
+                }
+            }
+        }
+
+
+        
+        async function saveProfile(event) {
+            event.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            try {
+                
+                saveButton.disabled = true;
+                saveButton.textContent = 'Saving...';
+                
+                
+                let height = parseFloat(heightInput.value);
+                let weight = parseFloat(weightInput.value);
+                
+                if (heightUnitSelect.value === 'ft') {
+                    height = feetToCm(height);
+                }
+                
+                if (weightUnitSelect.value === 'lbs') {
+                    weight = lbsToKg(weight);
+                }
+                
+                const profileData = {
+                    dateOfBirth: birthdayInput.value,
+                    height: height,
+                    weight: weight,
+                    healthGoals: healthGoalsInput.value.trim()
+                };
+                
+                const response = await fetch('http://localhost:5000/api/user/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(profileData)
+                });
+                
+                const responseData = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(responseData.message || 'Failed to save profile');
+                }
+                
+                
+                alert('Profile updated successfully!');
+                window.location.href = 'dashboard.html'; 
+                
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                alert('Failed to save profile. ' + (error.message || 'Please try again.'));
+            } finally {
+                saveButton.disabled = false;
+                saveButton.textContent = 'Save Changes';
+            }
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            birthdayInput.max = today.toISOString().split('T')[0];
+            birthdayInput.min = minDate.toISOString().split('T')[0];
+            
+            
+            fetchUserProfile();
+            
+            
+            birthdayInput.addEventListener('blur', validateForm);
+            heightInput.addEventListener('input', () => clearError('height'));
+            weightInput.addEventListener('input', () => clearError('weight'));
+            
+            
+            heightUnitSelect.addEventListener('change', handleUnitChange);
+            weightUnitSelect.addEventListener('change', handleUnitChange);
+            
+            
+            userInfoForm.addEventListener('submit', saveProfile);
+        });
     </script>
 </body>
 

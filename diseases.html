@@ -152,7 +152,7 @@
                 </div>
 
 
-                <div class="button-container"><!-- Next Button -->
+                <div class="button-container">
                     <a href="alergies.html">
                         <button id="backButton" class="bg-gray-400 text-white py-2 px-4 rounded-md mt-6">Back</button>
                     </a>
@@ -174,7 +174,104 @@
             <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
         </div>
     </footer>
-    <script src="js/meal.js"></script>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextButton = document.getElementById('nextButton');
+            const backButton = document.getElementById('backButton');
+            const diseaseCheckboxes = document.querySelectorAll('input[name="diseases"]');
+            
+          
+            diseaseCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    
+                    if (this.value === 'none' && this.checked) {
+                        diseaseCheckboxes.forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    } else if (this.checked) {
+                        
+                        const noneCheckbox = document.querySelector('input[value="none"]');
+                        if (noneCheckbox) noneCheckbox.checked = false;
+                    }
+                    
+                    const anySelected = Array.from(diseaseCheckboxes).some(cb => cb.checked);
+                    if (anySelected) {
+                        nextButton.classList.remove('bg-gray-400');
+                        nextButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                        nextButton.disabled = false;
+                    } else {
+                        nextButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        nextButton.classList.add('bg-gray-400');
+                        nextButton.disabled = true;
+                    }
+                });
+            });
 
+            
+            async function saveDiseases() {
+                const selectedDiseases = [];
+                diseaseCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedDiseases.push(checkbox.value);
+                    }
+                });
+
+                
+                if (selectedDiseases.includes('none')) {
+                    selectedDiseases.length = 0; 
+                    selectedDiseases.push('none');
+                }
+
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+
+                try {
+                    
+                    nextButton.disabled = true;
+                    nextButton.textContent = 'Saving...';
+
+                    
+                    const response = await fetch('http://localhost:5000/api/user/diseases', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ diseases: selectedDiseases })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to save diseases');
+                    }
+
+             
+                    localStorage.setItem('diseases', JSON.stringify(selectedDiseases));
+                    
+                  
+                    window.location.href = 'budget.html';
+                } catch (error) {
+                    console.error('Error saving diseases:', error);
+                    alert(error.message || 'Failed to save diseases. Please try again.');
+                    nextButton.disabled = false;
+                    nextButton.textContent = 'Next';
+                }
+            }
+
+
+            
+            nextButton.addEventListener('click', saveDiseases);
+            
+            
+            backButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
+</body>
 </html>

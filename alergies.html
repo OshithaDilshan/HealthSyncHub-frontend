@@ -189,6 +189,103 @@
 
     <!-- JavaScript -->
     <script src="js/meal.js"></script>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextButton = document.getElementById('nextButton');
+            const backButton = document.getElementById('backButton');
+            const allergyCheckboxes = document.querySelectorAll('input[name="allergy"]');
+            
+            
+            allergyCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    
+                    if (this.value === 'none' && this.checked) {
+                        allergyCheckboxes.forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    } else if (this.checked) {
+                        
+                        const noneCheckbox = document.querySelector('input[value="none"]');
+                        if (noneCheckbox) noneCheckbox.checked = false;
+                    }
+                    
+                    
+                    const anySelected = Array.from(allergyCheckboxes).some(cb => cb.checked);
+                    if (anySelected) {
+                        nextButton.classList.remove('bg-gray-400');
+                        nextButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                        nextButton.disabled = false;
+                    } else {
+                        nextButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        nextButton.classList.add('bg-gray-400');
+                        nextButton.disabled = true;
+                    }
+                });
+            });
 
+            
+            async function saveAllergies() {
+                const selectedAllergies = [];
+                allergyCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedAllergies.push(checkbox.value);
+                    }
+                });
+
+                
+                if (selectedAllergies.includes('none')) {
+                    selectedAllergies.length = 0; 
+                    selectedAllergies.push('none');
+                }
+
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                try {
+                    
+                    nextButton.disabled = true;
+                    nextButton.textContent = 'Saving...';
+
+                    
+                    const response = await fetch('http://localhost:5000/api/user/allergies', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ allergies: selectedAllergies })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to save allergies');
+                    }
+
+                    
+                    localStorage.setItem('allergies', JSON.stringify(selectedAllergies));
+                    
+                    
+                    window.location.href = 'budget.html';
+                } catch (error) {
+                    console.error('Error saving allergies:', error);
+                    alert(error.message || 'Failed to save allergies. Please try again.');
+                    nextButton.disabled = false;
+                    nextButton.textContent = 'Next';
+                }
+            }
+
+            
+            nextButton.addEventListener('click', saveAllergies);
+            
+            
+            backButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
+</body>
 </html>

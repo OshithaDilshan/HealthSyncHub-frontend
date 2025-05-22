@@ -139,7 +139,13 @@
             <div class="success-message">
                 Your account has been successfully created!
             </div>
-            <button type="button" id="continueButton" onclick="window.location.href='home.html'">Continue</button>
+            <button type="button" id="continueButton" onclick="window.location.href='login.html'">Go to Login</button>
+            <script>
+                // Automatically redirect to login page after 3 seconds
+                setTimeout(function() {
+                    window.location.href = 'login.html';
+                }, 3000);
+            </script>
         </div>
     </div>
 

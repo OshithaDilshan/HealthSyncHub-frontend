@@ -7,6 +7,7 @@
 	    <link rel="icon" href="assets/tabicon.png" type="image/png">
 
     <title>Health Sync Hub - Forgot Password</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
@@ -241,46 +242,45 @@
 <body>
     <div class="main-container">
         <div class="reset-container">
-            <h2>Reset Password</h2>
-            <h3>Health Sync Hub</h3>
-
-            <!-- Email Step -->
-            <div id="emailStep" class="step-container active">
+            <h2>Forgot Password?</h2>
+            <h3>Enter your email to reset your password</h3>
+            
+            <!-- Step 1: Email Input -->
+            <div class="step-container active" id="step1">
                 <div class="input-container">
                     <input type="email" id="email" placeholder="Enter your email" required>
-                    <div class="error-message" id="emailError"></div>
+                    <i class="fas fa-envelope"></i>
                 </div>
-                <button class="action-button" onclick="requestOTP()">Request OTP</button>
+                <div class="error-message" id="emailError"></div>
+                <button class="action-button" id="sendResetLinkBtn">Send Reset Link</button>
+                <p class="message">Remember your password? <a href="login.html">Sign In</a></p>
             </div>
-
-            <!-- OTP Step -->
-            <div id="otpStep" class="step-container">
-                <p class="message">Please enter the OTP sent to your email</p>
-                <div class="otp-container">
-                    <input type="text" class="otp-input" maxlength="1" data-index="1">
-                    <input type="text" class="otp-input" maxlength="1" data-index="2">
-                    <input type="text" class="otp-input" maxlength="1" data-index="3">
-                    <input type="text" class="otp-input" maxlength="1" data-index="4">
-                </div>
-                <div class="timer" id="timer">Time remaining: <span id="timeLeft">01:00</span></div>
-                <button class="resend-button" id="resendButton" onclick="requestOTP(true)">Resend OTP</button>
-                <div class="error-message" id="otpError"></div>
-                <button class="action-button" onclick="verifyOTP()">Verify OTP</button>
-            </div>
-
-            <!-- New Password Step -->
-            <div id="passwordStep" class="step-container">
+            
+            <!-- Step 2: New Password -->
+            <div class="step-container" id="step2">
+                <p>Enter your new password below</p>
                 <div class="input-container">
-                    <input type="password" id="newPassword" placeholder="Enter new password">
-                    <i class="toggle-password fas fa-eye-slash" onclick="togglePassword('newPassword')"></i>
-                    <div class="error-message" id="passwordError"></div>
+                    <input type="password" id="newPassword" placeholder="New Password" required>
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('newPassword')"></i>
                 </div>
                 <div class="input-container">
-                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
-                    <i class="toggle-password fas fa-eye-slash" onclick="togglePassword('confirmPassword')"></i>
-                    <div class="error-message" id="confirmError"></div>
+                    <input type="password" id="confirmPassword" placeholder="Confirm New Password" required>
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
                 </div>
-                <button class="action-button" onclick="resetPassword()">Reset Password</button>
+                <div class="error-message" id="passwordError"></div>
+                <button class="action-button" id="resetPasswordBtn">Reset Password</button>
+            </div>
+            
+            <!-- Success Message -->
+            <div class="step-container" id="successMessage" style="display: none;">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-check-circle" style="font-size: 48px; color: #4CAF50; margin-bottom: 20px;"></i>
+                    <h3>Password Reset Successful!</h3>
+                    <p>Your password has been successfully reset.</p>
+                    <a href="login.html" class="action-button" style="text-decoration: none; display: inline-block; margin-top: 20px;">Go to Login</a>
+                </div>
             </div>
         </div>
     </div>
@@ -290,179 +290,170 @@
         <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
     <script>
-	 let timerInterval;
-        let timeLeft = 60; // 60 seconds = 1 minute
+        // DOM Elements
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const successMessage = document.getElementById('successMessage');
+        const sendResetLinkBtn = document.getElementById('sendResetLinkBtn');
+        const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
 
-        function startTimer() {
-            // Reset timer display
-            timeLeft = 60;
-            const timerElement = document.getElementById('timer');
-            const resendButton = document.getElementById('resendButton');
-            const timeLeftSpan = document.getElementById('timeLeft');
-            
-            // Show timer, hide resend button
-            timerElement.classList.add('active');
-            resendButton.classList.remove('active');
-            
-            // Clear any existing interval
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            
-            // Start new timer
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                
-                // Format time
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timeLeftSpan.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // When timer expires
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    timerElement.classList.remove('active');
-                    resendButton.classList.add('active');
+        
+        function showStep(step) {
+            const steps = [step1, step2, successMessage];
+            steps.forEach((stepElement, index) => {
+                if (index + 1 === step) {
+                    stepElement.style.display = 'block';
+                } else {
+                    stepElement.style.display = 'none';
                 }
-            }, 1000);
-        }
-        // Step management
-        function showStep(stepId) {
-            document.querySelectorAll('.step-container').forEach(container => {
-                container.classList.remove('active');
             });
-            document.getElementById(stepId).classList.add('active');
         }
 
-        // Email validation
+        
         function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
         }
 
-        // Request OTP
-        function requestOTP(isResend = false) {
-            const email = document.getElementById('email').value;
-            const errorElement = document.getElementById('emailError');
-
-            if (!email) {
-                errorElement.textContent = 'Please enter your email address';
-                errorElement.style.display = 'block';
-                return;
-            }
-
-            if (!isValidEmail(email)) {
-                errorElement.textContent = 'Please enter a valid email address';
-                errorElement.style.display = 'block';
-                return;
-            }
-
-            // Simulate OTP sending
-            errorElement.style.display = 'none';
-            alert(`OTP has been sent to ${email}`);
-            
-            if (!isResend) {
-                showStep('otpStep');
-            }
-            
-            // Start the timer
-            startTimer();
-            
-            // Clear OTP inputs if resending
-            if (isResend) {
-                document.querySelectorAll('.otp-input').forEach(input => {
-                    input.value = '';
-                });
-                document.querySelector('[data-index="1"]').focus();
-            }
-        }
-
-        // OTP handling
-        document.querySelectorAll('.otp-input').forEach(input => {
-            input.addEventListener('keyup', (e) => {
-                if (e.key !== 'Backspace' && input.value) {
-                    const next = input.getAttribute('data-index');
-                    if (next < 4) {
-                        document.querySelector(`[data-index="${parseInt(next) + 1}"]`).focus();
-                    }
-                }
-                if (e.key === 'Backspace' && !input.value) {
-                    const prev = input.getAttribute('data-index');
-                    if (prev > 1) {
-                        document.querySelector(`[data-index="${parseInt(prev) - 1}"]`).focus();
-                    }
-                }
-            });
-        });
-
-        // Verify OTP
-        function verifyOTP() {
-            const otp = Array.from(document.querySelectorAll('.otp-input'))
-                .map(input => input.value)
-                .join('');
-
-            const errorElement = document.getElementById('otpError');
-
-            if (otp.length !== 4) {
-                errorElement.textContent = 'Please enter the complete OTP';
-                errorElement.style.display = 'block';
-                return;
-            }
-
-            // Simulate OTP verification (using 1234 as example)
-            if (otp === '1234') {
-                errorElement.style.display = 'none';
-                showStep('passwordStep');
-            } else {
-                errorElement.textContent = 'Invalid OTP. Please try again';
-                errorElement.style.display = 'block';
-            }
-        }
-
-        // Toggle password visibility
+        
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling;
-
+            const icon = input.nextElementSibling.nextElementSibling;
+            
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            } else {
-                input.type = 'password';
                 icon.classList.remove('fa-eye');
                 icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         }
 
-        // Reset password
-        function resetPassword() {
+        
+        sendResetLinkBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                emailError.textContent = 'Please enter a valid email';
+                emailError.style.display = 'block';
+                return;
+            }
+            
+            emailError.style.display = 'none';
+            
+            try {
+                
+                sendResetLinkBtn.disabled = true;
+                sendResetLinkBtn.textContent = 'Sending...';
+                
+                
+                const response = await axios.post('http://localhost:5000/api/auth/forgotpassword', {
+                    email: email
+                });
+                
+                if (response.data.success) {
+                    
+                    localStorage.setItem('resetEmail', email);
+                    alert('Password reset link has been sent to your email. Please check your inbox.');
+                } else {
+                    throw new Error(response.data.message || 'Failed to send reset link');
+                }
+            } catch (error) {
+                console.error('Error sending reset link:', error);
+                emailError.textContent = error.response?.data?.message || 'Failed to send reset link. Please try again.';
+                emailError.style.display = 'block';
+            } finally {
+                sendResetLinkBtn.disabled = false;
+                sendResetLinkBtn.textContent = 'Send Reset Link';
+            }
+        });
+
+        
+        resetPasswordBtn.addEventListener('click', async () => {
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            const passwordError = document.getElementById('passwordError');
-            const confirmError = document.getElementById('confirmError');
-
-            passwordError.style.display = 'none';
-            confirmError.style.display = 'none';
-
-            if (newPassword.length < 8) {
-                passwordError.textContent = 'Password must be at least 8 characters long';
+            
+            
+            if (!newPassword || !confirmPassword) {
+                passwordError.textContent = 'Please enter and confirm your new password';
                 passwordError.style.display = 'block';
                 return;
             }
-
-            if (newPassword !== confirmPassword) {
-                confirmError.textContent = 'Passwords do not match';
-                confirmError.style.display = 'block';
+            
+            if (newPassword.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long';
+                passwordError.style.display = 'block';
                 return;
             }
+            
+            if (newPassword !== confirmPassword) {
+                passwordError.textContent = 'Passwords do not match';
+                passwordError.style.display = 'block';
+                return;
+            }
+            
+            passwordError.style.display = 'none';
+            
+            try {
+                
+                resetPasswordBtn.disabled = true;
+                resetPasswordBtn.textContent = 'Resetting...';
+                
+            
+                const urlParams = new URLSearchParams(window.location.search);
+                const token = urlParams.get('token');
+                
+                if (!token) {
+                    throw new Error('Invalid or missing reset token');
+                }
+                
+                
+                const response = await axios.put(`http://localhost:5000/api/auth/resetpassword/${token}`, {
+                    password: newPassword
+                });
+                
+                if (response.data.success) {
+                    
+                    showStep(3);
+                    
+                    
+                    localStorage.removeItem('resetEmail');
+                } else {
+                    throw new Error(response.data.message || 'Failed to reset password');
+                }
+            } catch (error) {
+                console.error('Error resetting password:', error);
+                passwordError.textContent = error.response?.data?.message || 'Failed to reset password. Please try again.';
+                passwordError.style.display = 'block';
+            } finally {
+                resetPasswordBtn.disabled = false;
+                resetPasswordBtn.textContent = 'Reset Password';
+            }
+        });
 
-            // Simulate password reset
-            alert('Password has been reset successfully!');
-            setTimeout(() => {
-                window.location.href = 'home.html';
-            }, 1000);
-        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            
+            if (token) {
+                
+                showStep(2);
+            }
+        });
     </script>
 </body>
 

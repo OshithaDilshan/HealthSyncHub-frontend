@@ -250,19 +250,81 @@
     <script>
         const goalInput = document.getElementById('goal');
         const continueButton = document.getElementById('continueButton');
+        const userInfoForm = document.getElementById('userInfoForm');
 
         function validateForm() {
             const goal = goalInput.value;
             continueButton.disabled = !goal;
+            return !!goal;
         }
 
         goalInput.addEventListener('change', validateForm);
 
-        localStorage.setItem("goal", goalInput);
         
-        if(continueButton){
-            window.location.href ="activityLevel.html";
+        if (userInfoForm) {
+            userInfoForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                if (!validateForm()) return;
+
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        throw new Error('No authentication token found');
+                    }
+
+                    
+                    continueButton.disabled = true;
+                    continueButton.textContent = 'Saving...';
+
+                    
+                    const userId = localStorage.getItem('userId');
+                    if (!userId) {
+                        throw new Error('User ID not found');
+                    }
+
+                    
+                    const formData = {
+                        user: userId,
+                        primaryGoal: goalInput.value
+                    };
+
+                    
+                    const response = await fetch('http://localhost:5000/api/user/update-goal', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            primaryGoal: goalInput.value
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Failed to update profile');
+                    }
+
+                    
+                    localStorage.setItem("goal", goalInput.value);
+                    
+                   
+                    window.location.href = "activityLevel.html";
+
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                    alert(`Error: ${error.message || 'Failed to save your goal. Please try again.'}`);
+                    continueButton.disabled = false;
+                    continueButton.textContent = 'Continue';
+                }
+            });
+        } else {
+            console.error('Could not find the form element');
         }
+
+        
+        validateForm();
     </script>
 </body>
 </html>

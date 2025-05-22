@@ -55,7 +55,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-right: 5rem;
-            /* Adjust the spacing between Back and Next buttons */
+            
 
         }
 
@@ -167,7 +167,80 @@
             <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
         </div>
     </footer>
-    <script src="js/meal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextButton = document.getElementById('nextButton');
+            const backButton = document.getElementById('backButton');
+            const dietForm = document.querySelector('form') || document.createElement('div');
+            let selectedDiet = '';
+
+            
+            document.querySelectorAll('input[name="diet"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    selectedDiet = this.value;
+                    nextButton.classList.remove('bg-gray-400');
+                    nextButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                    nextButton.disabled = false;
+                });
+            });
+
+            
+            async function saveDietType() {
+                if (!selectedDiet) {
+                    alert('Please select a diet type');
+                    return;
+                }
+
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                try {
+                    
+                    nextButton.disabled = true;
+                    nextButton.textContent = 'Saving...';
+
+                    
+                    const response = await fetch('http://localhost:5000/api/user/diet-type', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ dietType: selectedDiet })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to save diet type');
+                    }
+
+                    
+                    localStorage.setItem('dietType', selectedDiet);
+                    
+                    
+                    window.location.href = 'alergies.html';
+                } catch (error) {
+                    console.error('Error saving diet type:', error);
+                    alert(error.message || 'Failed to save diet type. Please try again.');
+                    nextButton.disabled = false;
+                    nextButton.textContent = 'Next';
+                }
+            }
+
+
+            nextButton.addEventListener('click', saveDietType);
+            
+            
+            backButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
+    </script>
 </body>
 
 </html>

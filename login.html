@@ -93,9 +93,89 @@
         }
 
         .input-container input:focus,
-        .password-container input:focus {
+        .password-container input:focus,
+        .input-container input:focus {
             border-color: #0EFF00;
             box-shadow: 0 0 0 2px rgba(14, 255, 0, 0.1);
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            text-align: left;
+            display: none;
+        }
+
+        .input-container.error input,
+        .password-container.error input {
+            border-color: #dc3545;
+        }
+
+        .input-container.valid input,
+        .password-container.valid input {
+            border-color: #28a745;
+        }
+
+        .input-container,
+        .password-container {
+            position: relative;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        /* Google sign-in button */
+        .google-signin-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            background-color: #fff;
+            color: #757575;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-signin-button:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #757575;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: 0.5rem;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: 0.5rem;
         }
 
         .password-container {
@@ -279,20 +359,28 @@
             <h2>Sign in to</h2>
             <h3>Health Sync Hub</h3>
 
-            <div class="input-wrapper">
-                <!-- Email Input -->
-                <div class="input-container">
-                    <input type="email" id="email" placeholder="Email" required>
-                </div>
+            <form id="loginForm" class="login-form">
+                <div class="input-wrapper">
+                    <!-- Email Input -->
+                    <div class="input-container">
+                        <input type="email" id="email" placeholder="Email" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
 
-                <!-- Password Input -->
-                <div class="password-container">
-                    <input type="password" id="loginPassword" placeholder="Password" required>
-                    <i class="toggle-password fas fa-eye-slash" onclick="togglePasswordVisibility()"></i>
+                    <!-- Password Input -->
+                    <div class="password-container">
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <i class="toggle-password fas fa-eye-slash" onclick="togglePasswordVisibility()"></i>
+                        <div class="error-message" id="passwordError"></div>
+                    </div>
                 </div>
-            </div>
-
-            <button class="google-button" onclick="googleSignIn()">LOG IN</button>
+                <button type="submit" class="google-button">LOG IN</button>
+            </form>
+            <div class="divider">OR</div>
+            <button class="google-signin-button" onclick="googleSignIn()">
+                <img src="assets/google-icon.png" alt="Google" class="google-icon">
+                Continue with Google
+            </button>
             <div class="link">
                 <p>Don't have an account? <a href="signup.html">Sign up</a></p>
                 <p><a href="fogotpasswod.html">Forgot your password?</a></p>
@@ -305,7 +393,32 @@
         <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
     </footer>
 
+    <!-- Add auth.js -->
+    <script src="js/auth.js"></script>
     <script>
+        // Helper functions for form validation
+        function showError(field, message) {
+            const container = document.getElementById(field).parentElement;
+            container.classList.add('error');
+            container.classList.remove('valid');
+            const errorElement = document.getElementById(`${field}Error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function clearError(field) {
+            const container = document.getElementById(field).parentElement;
+            container.classList.remove('error', 'valid');
+            const errorElement = document.getElementById(`${field}Error`);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+
+        // Toggle password visibility
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('loginPassword');
             const icon = document.querySelector('.toggle-password');
@@ -321,10 +434,117 @@
             }
         }
 
-        function googleSignIn() {
-            // alert("Redirecting to Google sign-in...");
-            window.location.href = "Home.html";
+
+        // Handle form submission
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.querySelector('.google-button');
+            const originalBtnText = loginBtn.textContent;
+            
+            // Clear previous errors
+            clearError('email');
+            clearError('loginPassword');
+            
+            // Validation
+            let isValid = true;
+            
+            if (!email) {
+                showError('email', 'Email is required');
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (!password) {
+                showError('loginPassword', 'Password is required');
+                isValid = false;
+            } else if (password.length < 6) {
+                showError('loginPassword', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            try {
+                // Show loading state
+                loginBtn.disabled = true;
+                loginBtn.textContent = 'Signing in...';
+                
+                // Call the login function from auth.js
+                const userData = await auth.login(email, password);
+                
+                // Login successful, redirect to dashboard or home page
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error('Login failed:', error);
+                
+                // Show appropriate error message
+                if (error.message.includes('401') || error.message.includes('credentials')) {
+                    showError('loginPassword', 'Invalid email or password');
+                } else if (error.message.includes('network')) {
+                    showError('email', 'Network error. Please check your connection.');
+                } else {
+                    showError('loginPassword', error.message || 'Login failed. Please try again.');
+                }
+                
+                // Re-enable login button
+                loginBtn.disabled = false;
+                loginBtn.textContent = originalBtnText;
+            }
         }
+
+        
+        function googleSignIn() {
+            
+            alert("Google sign-in would be implemented here");
+            
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+            
+            
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('loginPassword');
+            
+            if (emailInput) {
+                emailInput.addEventListener('input', () => clearError('email'));
+            }
+            
+            if (passwordInput) {
+                passwordInput.addEventListener('input', () => clearError('loginPassword'));
+            }
+            
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('registered')) {
+                
+                const successMessage = document.createElement('div');
+                successMessage.className = 'success-message';
+                successMessage.textContent = 'Registration successful! Please log in with your credentials.';
+                successMessage.style.cssText = 'background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 1rem; text-align: center;';
+                
+                const loginContainer = document.querySelector('.login-container');
+                if (loginContainer) {
+                    loginContainer.insertBefore(successMessage, loginContainer.firstChild);
+                    
+                    
+                    setTimeout(() => {
+                        successMessage.style.opacity = '0';
+                        setTimeout(() => successMessage.remove(), 300);
+                    }, 5000);
+                }
+            }
+        });
     </script>
 </body>
 
