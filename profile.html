@@ -33,7 +33,6 @@
     </div>
 
     <div class="flex w-full h-full">
-        <!-- Sidebar Navigation (unchanged) -->
         <div class="sidebar w-20 md:w-24 flex flex-col items-center py-8">
             <div class="icon-nav flex flex-col items-center space-y-8">
                 <div class="icon flex flex-col items-center ">
@@ -69,72 +68,67 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content flex-1">
             <div class="flex justify-between items-center">
                 <button id="editButton" class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
                     Edit Profile
                 </button>
-                <!-- Update logout button to trigger modal -->
                 <button onclick="showLogoutModal()"
                     class="px-4 py-2 bg-gray-300 text-black rounded-md shadow hover:bg-gray-400">
                     Log Out
                 </button>
             </div>
 
-            <!-- Profile Card (unchanged) -->
             <div class="bg-white mt-8 p-8 rounded-lg shadow-lg w-4/5 h-4/5 mx-auto">
                 <div class="flex space-x-8">
-                    <!-- Personal Details -->
                     <div class="flex-1 grid grid-cols-3 gap-9">
-                        <!-- Profile Photo -->
                         <div class="w-24 h-24 rounded-full flex items-center justify-center">
                             <img id="userImage" class="w-24 h-24 rounded-full object-cover" alt="User Profile Photo">
                         </div>
                         <div>
                             <label class="block text-gray-700">Name</label>
-                            <div id="name" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="name" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Email</label>
-                            <div id="email" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="email" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Sex</label>
-                            <div id="sex" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="sex" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Age</label>
-                            <div id="age" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="age" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Weight</label>
-                            <div id="weight" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="weight" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Height</label>
-                            <div id="height" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="height" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">BMR</label>
-                            <div id="bmr" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="bmr" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">BMI</label>
-                            <div id="bmi" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="bmi" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
                         </div>
                         <div>
-                            <label class="block text-gray-700">Physical Injuries</label>
-                            <div id="physicalInjuries" class="border-b border-gray-400 py-1" contenteditable="false">
+                            <label class="block text-gray-700">Diseases</label>
+                            <div id="diseases" class="border-b border-gray-400 py-1" contenteditable="true">
                             </div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Allergies</label>
-                            <div id="allergies" class="border-b border-gray-400 py-1" contenteditable="false"></div>
+                            <div id="allergies" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Medical Conditions</label>
-                            <div id="medicalConditions" class="border-b border-gray-400 py-1" contenteditable="false">
+                            <div id="medicalConditions" class="border-b border-gray-400 py-1" contenteditable="true">
                             </div>
                         </div>
                     </div>
