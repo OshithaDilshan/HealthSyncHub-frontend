@@ -322,12 +322,12 @@
                     </div>
                 </div>
                 
-                <div class="input-row">
+                <!-- <div class="input-row">
                     <div class="input-group" style="max-width: 100%;">
                         <label for="healthGoals">Health Goals</label>
                         <textarea id="healthGoals" name="healthGoals" rows="3" placeholder="E.g., Lose weight, build muscle, improve endurance, etc." style="width: 100%; max-width: 600px; padding: 0.75rem; border: 1px solid #0EFF00; border-radius: 4px; resize: vertical;"></textarea>
                     </div>
-                </div>
+                </div> -->
                 
                 <div class="button-container">
                     <button type="button" id="backButton" onclick="window.location.href='login.html'">Back</button>
@@ -492,11 +492,11 @@
             const genderInput = document.getElementById('gender');
             const heightInput = document.getElementById('height');
             const weightInput = document.getElementById('weight');
-            const healthGoalsInput = document.getElementById('healthGoals');
+            // const healthGoalsInput = document.getElementById('healthGoals');
             const continueButton = document.getElementById('continueButton');
 
             
-            if (!dobInput || !genderInput || !heightInput || !weightInput || !healthGoalsInput || !continueButton) {
+            if (!dobInput || !genderInput || !heightInput || !weightInput || !continueButton) {
                 console.error('One or more form elements not found');
                 return;
             }
@@ -548,8 +548,8 @@
                         dateOfBirth: dobInput.value,
                         gender: genderInput.value,
                         height: parseFloat(heightInput.value),
-                        weight: parseFloat(weightInput.value),
-                        healthGoals: healthGoalsInput.value.trim() || ''
+                        weight: parseFloat(weightInput.value)
+                        // healthGoals: healthGoalsInput.value.trim() || ''
                     };
 
                     console.log('=== API REQUEST DEBUG ===');
