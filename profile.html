@@ -69,10 +69,10 @@
         </div>
 
         <div class="main-content flex-1">
-            <div class="flex justify-between items-center">
-                <button id="editButton" class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
+            <div class="flex justify-end items-center">
+                <!-- <button id="editButton" class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
                     Edit Profile
-                </button>
+                </button> -->
                 <button onclick="showLogoutModal()"
                     class="px-4 py-2 bg-gray-300 text-black rounded-md shadow hover:bg-gray-400">
                     Log Out
@@ -83,15 +83,16 @@
                 <div class="flex space-x-8">
                     <div class="flex-1 grid grid-cols-3 gap-9">
                         <div class="w-24 h-24 rounded-full flex items-center justify-center">
-                            <img id="userImage" class="w-24 h-24 rounded-full object-cover" alt="User Profile Photo">
+                            <img src="assets/user.png" class="w-24 h-24 rounded-full object-cover"
+                                alt="User Profile Photo">
                         </div>
                         <div>
                             <label class="block text-gray-700">Name</label>
-                            <div id="name" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
+                            <div id="name" class="border-b border-gray-400 py-1" contenteditable="false"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Email</label>
-                            <div id="email" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
+                            <div id="email" class="border-b border-gray-400 py-1" contenteditable="false"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Sex</label>
@@ -99,7 +100,7 @@
                         </div>
                         <div>
                             <label class="block text-gray-700">Age</label>
-                            <div id="age" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
+                            <div id="age" class="border-b border-gray-400 py-1" contenteditable="false"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Weight</label>
@@ -110,12 +111,12 @@
                             <div id="height" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
-                            <label class="block text-gray-700">BMR</label>
-                            <div id="bmr" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
+                            <label class="block text-gray-700">Diet Type</label>
+                            <div id="dietType" class="border-b border-gray-400 py-1" contenteditable="false"></div>
                         </div>
                         <div>
-                            <label class="block text-gray-700">BMI</label>
-                            <div id="bmi" class="border-b border-gray-400 py-1" contenteditable="false" style="background-color: #F0F0F0"></div>
+                            <label class="block text-gray-700">Activity Level</label>
+                            <div id="activityLevel" class="border-b border-gray-400 py-1" contenteditable="false"></div>
                         </div>
                         <div>
                             <label class="block text-gray-700">Diseases</label>
@@ -127,14 +128,14 @@
                             <div id="allergies" class="border-b border-gray-400 py-1" contenteditable="true"></div>
                         </div>
                         <div>
-                            <label class="block text-gray-700">Medical Conditions</label>
-                            <div id="medicalConditions" class="border-b border-gray-400 py-1" contenteditable="true">
+                            <label class="block text-gray-700">Primary Goal</label>
+                            <div id="primaryGoal" class="border-b border-gray-400 py-1" contenteditable="true">
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Save and Cancel buttons (hidden by default) -->
-                <div id="editButtons" class="mt-6 flex space-x-4 hidden">
+                <!-- <div id="editButtons" class="mt-6 flex space-x-4 hidden">
                     <button id="saveButton"
                         class="px-4 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600">
                         Save Changes
@@ -143,7 +144,7 @@
                         class="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600">
                         Cancel
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -151,7 +152,7 @@
     <!-- Footer -->
     <footer class="footer w-full text-white text-center py-4">
         <div class="container mx-auto">
-            <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
+            <p>&copy; 2025 Health Sync Hub. All rights reserved.</p>
             <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
         </div>
     </footer>
