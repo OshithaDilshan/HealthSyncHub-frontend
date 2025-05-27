@@ -30,7 +30,7 @@
                     <p class="text-xs mt-2">Home</p>
                 </div>
                 <div class="icon flex flex-col items-center active">
-                    <a href="Diet_restrictions.html">
+                    <a href="mealplansone.html">
                         <img src="assets/meal-icon.png" alt="Meal Icon" class="w-8 h-8">
                     </a>
                     <p class="text-xs mt-2">Meal</p>
@@ -71,27 +71,27 @@
 
 
                         <!-- Dropdown Content for Day 01 -->
-                        <div id="day01Content"
-                            class="dropdown-content hidden p-4 mt-2 bg-gray-100 rounded-lg shadow-md">
-                            <div class="meal-item">
-                                <h4 class="text-xl font-semibold">Breakfast</h4>
+                        <div id="day01Content" class="dropdown-content hidden p-4 mt-2 bg-gray-100 rounded-lg shadow-md">
+                            <!-- <div class="meal-item">
+                                <h4 class="text-xl font-semibold"></h4>
                                 <div class="meal-details flex items-center space-x-4 mt-2">
                                     <div>
-                                        <p><strong>Calories:</strong> 400 kcal</p>
-                                        <p><strong>Name:</strong> String hoppers,dhal curry,steamed vegetables</p>
+                                        <p></p>
+                                        <p></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="meal-item mt-4">
+                            </div> -->
+                            <!-- <div class="meal-item mt-4">
                                 <h4 class="text-xl font-semibold">Lunch</h4>
                                 <div class="meal-details flex items-center space-x-4 mt-2">
                                     <div>
                                         <p><strong>Calories:</strong> 600 kcal</p>
-                                        <p><strong>Name:</strong> Brownrice,dhal curry,mallung,papadam,fresh fruit(pineapple)</p>
+                                        <p><strong>Name:</strong> Brownrice,dhal curry,mallung,papadam,fresh
+                                            fruit(pineapple)</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="meal-item mt-4">
+                            </div> -->
+                            <!-- <div class="meal-item mt-4">
                                 <h4 class="text-xl font-semibold">Dinner</h4>
                                 <div class="meal-details flex items-center space-x-4 mt-2">
                                     <div>
@@ -99,8 +99,8 @@
                                         <p><strong>Name:</strong> Steamed jackfruit,lunumiris,boiled grams</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="meal-item mt-4">
+                            </div> -->
+                            <!-- <div class="meal-item mt-4">
                                 <h4 class="text-xl font-semibold">Snack</h4>
                                 <div class="meal-details flex items-center space-x-4 mt-2">
                                     <div>
@@ -108,11 +108,11 @@
                                         <p><strong>Name:</strong> Boiled mung and chikpea beans</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
-                    
+
 
 
 
@@ -124,8 +124,8 @@
                         <img src="assets/lady.png" alt="Icon" class="w-10 h-10 rounded-full mr-3">
                         <p class="text-gray-700 text-sm">Did you know an adult's daily water usage is 3L?</p>
                     </div>
-                    <button id="nextButton" class="mt-8 custom-bg text-white py-2 px-4 rounded">Workout
-                        Planning</button>
+                    <!-- <button id="nextButton" class="mt-8 custom-bg text-white py-2 px-4 rounded">Workout
+                        Planning</button> -->
 
                 </div>
             </div>
@@ -141,18 +141,58 @@
     </footer>
 
     <script>
+        async function loadMealData() {
+            try {
+                const res = await fetch("http://localhost:5000/api/meal"); // update if your port or path differs
+                const meals = await res.json();
+
+                const day01Content = document.getElementById("day01Content");
+                day01Content.innerHTML = ""; // Clear placeholder content
+
+                if (meals.length > 0 && meals[0].day.length > 0) {
+                    const mealDay = meals[0].day[0];
+
+                    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
+
+                    mealTypes.forEach(type => {
+                        const item = mealDay[type][0]; // Assuming one item per meal type
+                        const name = item.name.join(', ');
+                        const calories = item.calories.join(', ');
+
+                        const mealHTML = `
+                        <div class="meal-item mt-4">
+                            <h4 class="text-xl font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                            <div class="meal-details flex items-center space-x-4 mt-2">
+                                <div>
+                                    <p><strong>Calories:</strong> ${calories}</p>
+                                    <p><strong>Name:</strong> ${name}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        day01Content.innerHTML += mealHTML;
+                    });
+                } else {
+                    day01Content.innerHTML = "<p>No meal data available.</p>";
+                }
+            } catch (err) {
+                console.error("Failed to load meals:", err);
+                document.getElementById("day01Content").innerHTML = "<p>Error loading meals.</p>";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadMealData);
+
         document.getElementById("day01").addEventListener("click", function () {
             const content = document.getElementById("day01Content");
-            // Toggle the visibility of the dropdown content
             content.classList.toggle("active");
         });
-        // Add an event listener to the button
-        document.getElementById('nextButton').addEventListener('click', function () {
-            // Navigate to home.html
-            window.location.href = 'injury.html';
-        });
 
+        // document.getElementById('nextButton').addEventListener('click', function () {
+        //     window.location.href = 'injury.html';
+        // });
     </script>
+
 </body>
 
 </html>
