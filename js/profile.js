@@ -74,7 +74,7 @@ async function getProfileDetails() {
                 return null;
             }
 
-            const response = await fetch(`${PROFILE_ENDPOINT}`, {
+            const response = await fetch(`${PROFILE_ENDPOINT}/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -219,6 +219,9 @@ function closeLogoutModal() {
 }
 
 function confirmLogout() {
+    localStorage.removeItem('user'); // Remove user data
+    localStorage.removeItem('userId'); // Remove user ID
+    localStorage.removeItem('token'); // Remove authentication token
     window.location.href = "index.html";
 }
 // function collectFormData() {
@@ -495,7 +498,7 @@ async function loadUserData() {
 // }
 document.addEventListener('DOMContentLoaded', async () => {
     const userData = localStorage.getItem('userData');
-    const token = getAuthToken();
+    const token = getCurrentUserId();
 
     if (!userData && !token) {
         console.log('No authentication found, redirecting to login');
