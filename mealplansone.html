@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/tabicon.png" type="image/png">
-    <title>Select Meal Option</title>
+    <title>Today's Meal Plan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/background.css">
-
 </head>
 
-<body class="flex flex-col h-screen font-josefin">
+<body class="flex flex-col h-screen font-josefin" id="mealoptionpage">
 
     <!-- Main Container -->
     <div class="flex flex-grow">
@@ -49,7 +48,7 @@
                 </div>
                 <div class="icon flex flex-col items-center">
                     <a href="profile.html">
-                        <img src="assets/user.png" alt="User Icon" alt="User Icon" class="w-8 h-8">
+                        <img src="assets/user.png" alt="User Icon" class="w-8 h-8">
                     </a>
                     <p class="text-xs mt-2">Profile</p>
                 </div>
@@ -57,78 +56,91 @@
         </div>
 
         <!-- Main Content -->
-        <div class="main-content flex-grow flex flex-col items-center justify-center">
-            <!-- Meal Options Container -->
-            <div class="meal-options flex space-x-8">
-                <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-3xl">
+        <div class="main-content flex-grow flex flex-col items-center justify-center px-4">
+            <!-- Meal Plan Container -->
+            <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-4xl w-full">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Today's Meal Plan</h1>
+                    <p class="text-gray-600">Personalized nutrition plan based on your goals</p>
+                </div>
 
-                    <!-- Dropdown for Day 01 -->
-                    <div class="dropdown-container">
-                        <button id="day01" class="day-button custom-bg text-white py-2 px-4 rounded w-full text-left">
-                            Day 01
-                            <i class="fas fa-chevron-down ml-2"></i>
-                        </button>
+                <!-- Daily Calorie Count -->
+                <div class="text-center mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Daily Calorie Target</h2>
+                    <div class="text-4xl font-bold text-blue-600 mb-4" id="calorie-count">Loading...</div>
+                   
+                </div>
 
-
-                        <!-- Dropdown Content for Day 01 -->
-                        <div id="day01Content"
-                            class="dropdown-content hidden p-4 mt-2 bg-gray-100 rounded-lg shadow-md">
-                            <!-- <div class="meal-item">
-                                <h4 class="text-xl font-semibold"></h4>
-                                <div class="meal-details flex items-center space-x-4 mt-2">
-                                    <div>
-                                        <p></p>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="meal-item mt-4">
-                                <h4 class="text-xl font-semibold">Lunch</h4>
-                                <div class="meal-details flex items-center space-x-4 mt-2">
-                                    <div>
-                                        <p><strong>Calories:</strong> 600 kcal</p>
-                                        <p><strong>Name:</strong> Brownrice,dhal curry,mallung,papadam,fresh
-                                            fruit(pineapple)</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="meal-item mt-4">
-                                <h4 class="text-xl font-semibold">Dinner</h4>
-                                <div class="meal-details flex items-center space-x-4 mt-2">
-                                    <div>
-                                        <p><strong>Calories:</strong> 400 kcal</p>
-                                        <p><strong>Name:</strong> Steamed jackfruit,lunumiris,boiled grams</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="meal-item mt-4">
-                                <h4 class="text-xl font-semibold">Snack</h4>
-                                <div class="meal-details flex items-center space-x-4 mt-2">
-                                    <div>
-                                        <p><strong>Calories:</strong> 100 kcal</p>
-                                        <p><strong>Name:</strong> Boiled mung and chikpea beans</p>
-                                    </div>
-                                </div>
-                            </div> -->
+                <!-- Meal Plan Sections -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Breakfast -->
+                    <div class="meal-section">
+                        <h3 class="text-2xl font-semibold text-gray-800 border-b-2 border-orange-200 pb-2 mb-4 flex items-center">
+                            <span class="text-orange-500 mr-2">🌅</span>
+                            Breakfast
+                        </h3>
+                        <div id="breakfast" class="meal-items space-y-3">
+                            <div class="animate-pulse">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                            </div>
                         </div>
                     </div>
 
-
-
-
-
-
-
-
-                    <!-- Info Box and Next Button -->
-                    <div class="info-box flex items-center mt-6 p-4 bg-gray-100 rounded-lg">
-                        <img src="assets/lady.png" alt="Icon" class="w-10 h-10 rounded-full mr-3">
-                        <p class="text-gray-700 text-sm">Did you know an adult's daily water usage is 3L?</p>
+                    <!-- Lunch -->
+                    <div class="meal-section">
+                        <h3 class="text-2xl font-semibold text-gray-800 border-b-2 border-green-200 pb-2 mb-4 flex items-center">
+                            <span class="text-green-500 mr-2">🥗</span>
+                            Lunch
+                        </h3>
+                        <div id="lunch" class="meal-items space-y-3">
+                            <div class="animate-pulse">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- <button id="nextButton" class="mt-8 custom-bg text-white py-2 px-4 rounded">Workout
-                        Planning</button> -->
 
+                    <!-- Dinner -->
+                    <div class="meal-section">
+                        <h3 class="text-2xl font-semibold text-gray-800 border-b-2 border-purple-200 pb-2 mb-4 flex items-center">
+                            <span class="text-purple-500 mr-2">🍽️</span>
+                            Dinner
+                        </h3>
+                        <div id="dinner" class="meal-items space-y-3">
+                            <div class="animate-pulse">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Snack -->
+                    <div class="meal-section">
+                        <h3 class="text-2xl font-semibold text-gray-800 border-b-2 border-yellow-200 pb-2 mb-4 flex items-center">
+                            <span class="text-yellow-500 mr-2">🍎</span>
+                            Snack
+                        </h3>
+                        <div id="snack" class="meal-items space-y-3">
+                            <div class="animate-pulse">
+                                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Info Box -->
+                <div class="info-box flex items-center mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                    <img src="assets/lady.png" alt="Nutrition Tip" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="text-blue-800 font-semibold">Nutrition Tip</p>
+                        <p class="text-blue-700 text-sm">Remember to drink at least 8 glasses of water throughout the day!</p>
+                    </div>
+                </div>
+
+               
             </div>
         </div>
     </div>
@@ -137,132 +149,14 @@
     <footer class="footer w-full text-white text-center py-4">
         <div class="container mx-auto">
             <p>&copy; 2024 Health Sync Hub. All rights reserved.</p>
-            <p>Email: support@mealplanningapp.com | Phone: +94 123 456 789</p>
+            <p>Email: support@healthsynchub.com | Phone: +94 123 456 789</p>
         </div>
     </footer>
 
-    <script>
-        // async function loadMealData() {
-        //     try {
-        //         const res = await fetch("http://localhost:5000/api/meal"); // update if your port or path differs
-        //         const meals = await res.json();
-
-        //         const day01Content = document.getElementById("day01Content");
-        //         day01Content.innerHTML = ""; // Clear placeholder content
-
-        //         if (meals.length > 0 && meals[0].day.length > 0) {
-        //             const mealDay = meals[0].day[0];
-
-        //             const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
-
-        //             mealTypes.forEach(type => {
-        //                 const item = mealDay[type][0]; // Assuming one item per meal type
-        //                 const name = item.name.join(', ');
-        //                 const calories = item.calories.join(', ');
-
-        //                 const mealHTML = `
-        //                 <div class="meal-item mt-4">
-        //                     <h4 class="text-xl font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
-        //                     <div class="meal-details flex items-center space-x-4 mt-2">
-        //                         <div>
-        //                             <p><strong>Calories:</strong> ${calories}</p>
-        //                             <p><strong>Name:</strong> ${name}</p>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             `;
-        //                 day01Content.innerHTML += mealHTML;
-        //             });
-        //         } else {
-        //             day01Content.innerHTML = "<p>No meal data available.</p>";
-        //         }
-        //     } catch (err) {
-        //         console.error("Failed to load meals:", err);
-        //         document.getElementById("day01Content").innerHTML = "<p>Error loading meals.</p>";
-        //     }
-        // }
-
-        // document.addEventListener("DOMContentLoaded", loadMealData);
-
-        // document.getElementById("day01").addEventListener("click", function () {
-        //     const content = document.getElementById("day01Content");
-        //     content.classList.toggle("active");
-        // });
-
-        // document.getElementById('nextButton').addEventListener('click', function () {
-        //     window.location.href = 'injury.html';
-        // });
-
-        async function loadMealData() {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    console.error("Token not found in localStorage");
-                    return;
-                }
-
-                // Check the token value
-                console.log("Token Sent:", token);
-
-                const res = await fetch("http://localhost:5000/api/meal/", {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${token}` // Ensure token is prefixed with 'Bearer '
-                    }
-                });
-
-                const data = await res.json();
-                console.log("Meal data received:", data);  // Log the response for debugging
-
-
-                if (data.message) {
-                    console.log("Error from backend:", data.message);
-                    document.getElementById("day01Content").innerHTML = `<p>${data.message}</p>`;
-                    return;
-                }
-
-                const day01Content = document.getElementById("day01Content");
-                day01Content.innerHTML = "";  // Clear previous content
-
-                if (data.mealPlan) {
-                    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
-
-                    mealTypes.forEach(type => {
-                        const items = data.mealPlan[type];
-                        if (items && items.length > 0) {
-                            const item = items[0];  // Assuming one item per meal type
-
-                            const mealHTML = `
-                    <div class="meal-item mt-4">
-                        <h4 class="text-xl font-semibold">${type.charAt(0).toUpperCase() + type.slice(1)}</h4>
-                        <div class="meal-details flex items-center space-x-4 mt-2">
-                            <div>
-                                <p><strong>Calories:</strong> ${item.calories}</p>
-                                <p><strong>Name:</strong> ${item.name}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                            day01Content.innerHTML += mealHTML;
-                        }
-                    });
-                } else {
-                    day01Content.innerHTML = "<p>No meal data available.</p>";
-                }
-            } catch (err) {
-                console.error("Failed to load meals:", err);
-                document.getElementById("day01Content").innerHTML = "<p>Error loading meals.</p>";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", loadMealData);
-
-        document.getElementById("day01").addEventListener("click", function () {
-            const content = document.getElementById("day01Content");
-            content.classList.toggle("active");
-        });
-
-    </script>
+    <!-- Include auth.js first for authentication -->
+    <script src="js/auth.js"></script>
+    <!-- Include the updated meal.js script -->
+    <script src="js/meal.js"></script>
 
 </body>
 

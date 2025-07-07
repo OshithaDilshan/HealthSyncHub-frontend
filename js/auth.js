@@ -111,13 +111,20 @@ async function login(username, password) {
             localStorage.setItem('token', `Bearer ${data.token}`);
         }
         
+        // Store the user ID in localStorage
+        if (data.user && data.user._id) {
+            localStorage.setItem('userId', data.user._id);
+        } else if (data._id) { // Fallback if user ID is at the root level
+            localStorage.setItem('userId', data._id);
+        }
+        
         const userData = {
-            id: data._id,
-            username: data.username,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            role: data.role || 'user'
+            id: data.user?._id || data._id, // Handle both response formats
+            username: data.user?.username || data.username,
+            email: data.user?.email || data.email,
+            firstName: data.user?.firstName || data.firstName,
+            lastName: data.user?.lastName || data.lastName,
+            role: data.user?.role || data.role || 'user'
         };
         
         localStorage.setItem('user', JSON.stringify(userData));
