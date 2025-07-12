@@ -1,0 +1,62 @@
+/* Meal Plan Styles */
+.meal-section {
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.meal-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.meal-item {
+    background: white;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    border: 1px solid #e5e7eb;
+}
+
+.meal-item h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.meal-item .calories {
+    font-size: 0.85rem;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+
+#refresh-meal-plan {
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#refresh-meal-plan:hover {
+    transform: translateY(-1px);
+}
+
+#refresh-meal-plan:active {
+    transform: translateY(1px);
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.meal-section .loading {
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
