@@ -177,36 +177,36 @@ function generateFallbackMealPlan() {
 }
 
 // Sample meal database for fallback
-const MEAL_DATABASE = {
-    breakfast: [
-        { name: 'Oatmeal with Banana and Almonds', calories: 320, type: 'vegetarian' },
-        { name: 'Greek Yogurt with Berries and Granola', calories: 280, type: 'vegetarian' },
-        { name: 'Avocado Toast with Poached Eggs', calories: 350, type: 'vegetarian' },
-        { name: 'Scrambled Tofu with Whole Wheat Toast', calories: 300, type: 'vegan' },
-        { name: 'Smoothie Bowl with Spinach and Protein Powder', calories: 340, type: 'vegan' }
-    ],
-    lunch: [
-        { name: 'Quinoa Salad with Chickpeas and Veggies', calories: 450, type: 'vegan' },
-        { name: 'Grilled Chicken with Brown Rice and Steamed Vegetables', calories: 500, type: 'regular' },
-        { name: 'Lentil Soup with Whole Grain Bread', calories: 400, type: 'vegetarian' },
-        { name: 'Tofu Stir-fry with Brown Rice', calories: 480, type: 'vegan' },
-        { name: 'Salmon with Sweet Potato and Asparagus', calories: 520, type: 'regular' }
-    ],
-    dinner: [
-        { name: 'Grilled Fish with Quinoa and Roasted Vegetables', calories: 480, type: 'regular' },
-        { name: 'Vegetable Curry with Brown Rice', calories: 420, type: 'vegetarian' },
-        { name: 'Chicken and Vegetable Stir-fry', calories: 450, type: 'regular' },
-        { name: 'Lentil Dal with Whole Wheat Roti', calories: 400, type: 'vegan' },
-        { name: 'Stuffed Bell Peppers with Quinoa', calories: 380, type: 'vegan' }
-    ],
-    snack: [
-        { name: 'Handful of Mixed Nuts', calories: 160, type: 'vegan' },
-        { name: 'Apple Slices with Peanut Butter', calories: 200, type: 'vegetarian' },
-        { name: 'Greek Yogurt with Honey', calories: 150, type: 'vegetarian' },
-        { name: 'Rice Cakes with Avocado', calories: 180, type: 'vegan' },
-        { name: 'Hard-Boiled Eggs with Carrot Sticks', calories: 170, type: 'regular' }
-    ]
-};
+// const MEAL_DATABASE = {
+//     breakfast: [
+//         { name: 'Oatmeal with Banana and Almonds', calories: 320, type: 'vegetarian' },
+//         { name: 'Greek Yogurt with Berries and Granola', calories: 280, type: 'vegetarian' },
+//         { name: 'Avocado Toast with Poached Eggs', calories: 350, type: 'vegetarian' },
+//         { name: 'Scrambled Tofu with Whole Wheat Toast', calories: 300, type: 'vegan' },
+//         { name: 'Smoothie Bowl with Spinach and Protein Powder', calories: 340, type: 'vegan' }
+//     ],
+//     lunch: [
+//         { name: 'Quinoa Salad with Chickpeas and Veggies', calories: 450, type: 'vegan' },
+//         { name: 'Grilled Chicken with Brown Rice and Steamed Vegetables', calories: 500, type: 'regular' },
+//         { name: 'Lentil Soup with Whole Grain Bread', calories: 400, type: 'vegetarian' },
+//         { name: 'Tofu Stir-fry with Brown Rice', calories: 480, type: 'vegan' },
+//         { name: 'Salmon with Sweet Potato and Asparagus', calories: 520, type: 'regular' }
+//     ],
+//     dinner: [
+//         { name: 'Grilled Fish with Quinoa and Roasted Vegetables', calories: 480, type: 'regular' },
+//         { name: 'Vegetable Curry with Brown Rice', calories: 420, type: 'vegetarian' },
+//         { name: 'Chicken and Vegetable Stir-fry', calories: 450, type: 'regular' },
+//         { name: 'Lentil Dal with Whole Wheat Roti', calories: 400, type: 'vegan' },
+//         { name: 'Stuffed Bell Peppers with Quinoa', calories: 380, type: 'vegan' }
+//     ],
+//     snack: [
+//         { name: 'Handful of Mixed Nuts', calories: 160, type: 'vegan' },
+//         { name: 'Apple Slices with Peanut Butter', calories: 200, type: 'vegetarian' },
+//         { name: 'Greek Yogurt with Honey', calories: 150, type: 'vegetarian' },
+//         { name: 'Rice Cakes with Avocado', calories: 180, type: 'vegan' },
+//         { name: 'Hard-Boiled Eggs with Carrot Sticks', calories: 170, type: 'regular' }
+//     ]
+// };
 
 function calculateCaloriesFromUserData(userData) {
     const { age, gender, weight, height, activityLevel, goal } = userData;
